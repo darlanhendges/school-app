@@ -2,6 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as  Updates from 'expo-updates';
+import { enableScreens } from 'react-native-screens';
+import Routes from './routes';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+
+enableScreens();
 
 export default function App() {
 
@@ -16,11 +24,14 @@ export default function App() {
     updateApp();
   }, []);
 
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <StatusBar style='light' />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
