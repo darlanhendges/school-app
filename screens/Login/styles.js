@@ -1,35 +1,52 @@
 import styled from 'styled-components/native';
 
 export const KeyboardView = styled.KeyboardAvoidingView`
-  flex: 1;
-`
+    flex: 1;
+`;
 
 export const Container = styled.View`
-  flex: 1;
-  background-color: white;
-  align-items: center;
-  justify-content: center;
+    flex: 1;
+    background-color: #FFD306;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Brand = styled.Image`
+    width: 50%;
+    height: 55px;
+    margin-bottom: 30px;
 `;
 
 export const Title = styled.Text`
-  color:red;
-
-`
-export const ButtonContainer = styled.TouchableOpacity`
-
-justify-content:center;
-align-items:center;
-	width: 311px;
-  height: 56px;
-  background: #146DFC;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-
+    margin-bottom: 30px;    
+    font-size: 20px;
+    color: #333333;
+    font-family: 'Pacifico_400Regular';
 `;
 
-export const TextButton = styled.Text`
-	font-size: 20px;
-  color: #FFFFFF;
-	text-align: center;
+export const FullNameInput = styled.TextInput`
+    width: 70%;
+    margin-bottom: 15px;
+    padding: 12px 0;
+    text-align: center;
+
+    font-size: 20px;
+    border: solid #E0BB0C 2px;
+    border-radius: 6px;
 `;
 
+export const SignInContainer = styled.TouchableOpacity`
+    width: 70%;
+    justify-content: center;
+    margin-bottom: 45px;
+
+    background: #AB8D00;
+    border-radius: 6px;
+    padding: 16px 0;
+`;
+
+export const SignInText = styled.Text`
+    text-align: center;
+    font-size: 20px;
+    color: white;
+`;

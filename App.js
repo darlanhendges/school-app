@@ -4,14 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as  Updates from 'expo-updates';
 import { enableScreens } from 'react-native-screens';
 import Routes from './routes';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { AppLoading } from 'expo';
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 
 enableScreens();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({ Pacifico_400Regular });
 
   useEffect(() => {
     async function updateApp() {
@@ -24,22 +25,16 @@ export default function App() {
     updateApp();
   }, []);
 
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar style='light' />
-      <NavigationContainer>
-        <Routes />
-      </NavigationContainer>
-    </SafeAreaProvider>
-  );
+  if (!fontsLoaded)
+    return (<AppLoading />);
+  else {
+    return (
+      <SafeAreaProvider>
+        <StatusBar style='light' />
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
