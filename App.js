@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import * as  Updates from 'expo-updates';
 import { enableScreens } from 'react-native-screens';
 import Routes from './routes';
@@ -8,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from 'expo';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import NameProvider from './contexts/name';
 
 enableScreens();
 
@@ -29,7 +29,9 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar style='light' />
       <NavigationContainer>
-        {!fontsLoaded ? <AppLoading /> : <Routes />}
+        <NameProvider>
+          {!fontsLoaded ? <AppLoading /> : <Routes />}
+        </NameProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );

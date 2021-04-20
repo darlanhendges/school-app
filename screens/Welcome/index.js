@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { NameContext } from '../../contexts/name';
 
 import {
     KeyboardView,
@@ -8,7 +9,7 @@ import {
 } from './styles';
 
 const Welcome = () => {
-    const [name, setName] = useState('Carlos');
+    const { name } = useContext(NameContext);
 
     return (
         <KeyboardView>
