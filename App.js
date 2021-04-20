@@ -1,18 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as  Updates from 'expo-updates';
-import { enableScreens } from 'react-native-screens';
-import Routes from './routes';
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import * as Updates from "expo-updates";
+import { enableScreens } from "react-native-screens";
+import Routes from "./routes";
 
-import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 enableScreens();
 
 export default function App() {
-
   useEffect(() => {
     async function updateApp() {
       const { isAvailable } = await Updates.checkForUpdateAsync();
@@ -24,10 +22,9 @@ export default function App() {
     updateApp();
   }, []);
 
-
   return (
     <SafeAreaProvider>
-      <StatusBar style='light' />
+      <StatusBar style="light" />
       <NavigationContainer>
         <Routes />
       </NavigationContainer>
@@ -38,8 +35,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
