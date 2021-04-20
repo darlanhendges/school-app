@@ -25,16 +25,12 @@ export default function App() {
     updateApp();
   }, []);
 
-  if (!fontsLoaded)
-    return (<AppLoading />);
-  else {
-    return (
-      <SafeAreaProvider>
-        <StatusBar style='light' />
-        <NavigationContainer>
-          <Routes />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    );
-  }
+  return (
+    <SafeAreaProvider>
+      <StatusBar style='light' />
+      <NavigationContainer>
+        {!fontsLoaded ? <AppLoading /> : <Routes />}
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 }
