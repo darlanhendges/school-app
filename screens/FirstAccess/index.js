@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { Rect } from 'react-native-svg';
+import { CommonActions } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import {
@@ -220,6 +221,11 @@ const FirstAccess = ({ navigation }) => {
                     <MainButton
                       onPress={async () => {
                         await AsyncStorage.setItem(KEYS.localStorageFirstAccess, 'true');
+
+                            navigation.dispatch(CommonActions.reset({
+                              index: 1,
+                              routes: [{ name: 'Login' }]
+                          }));
                       }}
                       text="CONTINUAR"
                     />
