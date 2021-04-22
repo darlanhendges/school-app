@@ -1,8 +1,8 @@
-import React from "react";
-import { View } from "react-native";
-import { CommonActions } from "@react-navigation/native";
+import React from 'react';
+import { View } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 
-import { Container, Title, ButtonContainer, TextButton } from "./styles";
+import { Container, Title, ButtonContainer, TextButton } from './styles';
 
 const FirstAccess = ({ navigation }) => {
   return (
@@ -14,7 +14,7 @@ const FirstAccess = ({ navigation }) => {
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
-              routes: [{ name: "Login" }],
+              routes: [{ name: "Login" }]
             })
           );
         }}

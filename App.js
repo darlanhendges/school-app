@@ -1,16 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import * as Updates from "expo-updates";
-import { enableScreens } from "react-native-screens";
-import Routes from "./routes";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
+import * as  Updates from 'expo-updates';
+import { enableScreens } from 'react-native-screens';
+import Routes from './routes';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import NameContextProvider from './contexts/name';
 
 enableScreens();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({ Pacifico_400Regular });
+
   useEffect(() => {
     async function updateApp() {
       const { isAvailable } = await Updates.checkForUpdateAsync();
@@ -26,17 +28,10 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Routes />
+        <NameContextProvider>
+          <Routes />
+        </NameContextProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
