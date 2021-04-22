@@ -149,12 +149,12 @@ const FirstAccess = ({ navigation }) => {
       <View
         style={{
           flex: 1,
-          justifyContent: 'flex-start',
+          justifyContent: 'flex-end',
           alignItems: 'center',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
-        <Logo width={200} height={200} />
+        <Logo  width={width/3} height={100} />
       </View>
 
       <Animated.FlatList
