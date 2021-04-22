@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import FirstAccess from '../screens/FirstAccess';
 import Login from '../screens/Login';
 import Welcome from '../screens/Welcome';
-import NameContextProvider from '../contexts/name';
 
 export default function Routes() {
     const NativeStack = createNativeStackNavigator();
@@ -12,11 +11,7 @@ export default function Routes() {
         <NativeStack.Navigator initialRouteName="FirstAccess">
             <NativeStack.Screen
                 name="Login"
-                component={(
-                    <NameContextProvider>
-                        <Login />
-                    </NameContextProvider>
-                )}
+                component={Login}
                 options={{
                     headerShown: false,
                     gestureEnabled: false
