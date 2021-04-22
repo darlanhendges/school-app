@@ -14,7 +14,7 @@ const Welcome = () => {
     return (
         <KeyboardView>
             <Container>
-                <Brand source={require('../../assets/brand.png')} />
+                <Brand source={require('../../assets/brand.png')} resizeMode="center" />
                 <Title>Olá! Seja bem-vindo, {name}</Title>
             </Container>
         </KeyboardView>
