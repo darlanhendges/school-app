@@ -13,7 +13,6 @@ import {
   Animated,
   Platform,
 } from 'react-native';
-import { CommonActions } from "@react-navigation/native";
 import Logo from '../../assets/logo';
 import MainButton from '../../components/MainButton';
 import { COLORS } from '../../constansts/colors';

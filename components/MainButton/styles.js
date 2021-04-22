@@ -1,6 +1,7 @@
 
 import styled from 'styled-components/native';
 import { COLORS } from '../../constansts/colors';
+import { FONTS } from '../../constansts/fonts';
 
 
 export const Container = styled.TouchableOpacity`
@@ -16,4 +17,5 @@ export const Container = styled.TouchableOpacity`
 export const ContainerText = styled.Text`
   font-size: 20px;
   padding:10px;
+  font-family: ${FONTS.Roboto_400Regular}
 `

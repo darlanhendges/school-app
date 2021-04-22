@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { COLORS } from '../../constansts/colors';
-import { FONTS } from '../../constansts/fontes';
+import { FONTS } from '../../constansts/fonts';
 
 export const KeyboardView = styled.KeyboardAvoidingView`
     flex: 1;
