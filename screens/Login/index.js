@@ -16,16 +16,12 @@ const Login = ({ navigation }) => {
     const { name, setName } = useContext(NameContext);
 
     const handleSignInOnPress = () => {
-        console.log(name);
-        console.log(setName);
-
         if (name.trim() != '') {
             navigation.dispatch(CommonActions.reset({
                 index: 1,
                 routes: [{ name: 'Welcome' }]
             }));
-        } else
-            alert('Não entrou!');
+        }
     }
 
     return (
