@@ -8,6 +8,6 @@ export default ({ children }) => {
     return (
         <NameContext.Provider value={{ name, setName }}>
             {children}
-        </NameContext.Provider>
+        </NameContext.Provider> 
     );
 };

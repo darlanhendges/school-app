@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppLoading } from 'expo';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import NameProvider from './contexts/name';
+import NameContextProvider from './contexts/name';
 
 enableScreens();
 
@@ -29,9 +29,9 @@ export default function App() {
     <SafeAreaProvider>
       <StatusBar style='light' />
       <NavigationContainer>
-        <NameProvider>
-          {!fontsLoaded ? <AppLoading /> : <Routes />}
-        </NameProvider>
+        <NameContextProvider>
+          <Routes />
+        </NameContextProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
