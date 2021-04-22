@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CommonActions } from '@react-navigation/native';
 import { NameContext } from '../../contexts/name';
+import { EtapaService } from '../../services';
 
 import {
     KeyboardView,
@@ -14,6 +15,12 @@ import {
 
 const Login = ({ navigation }) => {
     const { name, setName } = useContext(NameContext);
+
+    useEffect(() => {
+        (async() => {
+            const response = await EtapaService.getSteps();
+        })();
+    });
 
     const handleSignInOnPress = () => {
         if (name.trim() != '') {
