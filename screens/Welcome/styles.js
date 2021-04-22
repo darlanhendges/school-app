@@ -18,7 +18,7 @@ export const Brand = styled.Image`
 `;
 
 export const Title = styled.Text`
-    margin-bottom: 30px;    
+    margin-bottom: 30px;
     font-size: 22px;
     color: #333333;
     font-family: 'Pacifico_400Regular';
