@@ -189,7 +189,7 @@ const FirstAccess = ({ navigation }) => {
 
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange: [0, -50, 0],
+            outputRange: [40, -60, 40],
             extrapolate: 'clamp'
           });
 
