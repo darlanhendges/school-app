@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import { COLORS } from '../../constansts/colors';
+import { FONTS } from '../../constansts/fonts';
 
 export const KeyboardView = styled.KeyboardAvoidingView`
     flex: 1;
@@ -6,7 +8,7 @@ export const KeyboardView = styled.KeyboardAvoidingView`
 
 export const Container = styled.View`
     flex: 1;
-    background-color: #FFD306;
+    background-color: ${COLORS.yellow};
     align-items: center;
     justify-content: center;
 `;
@@ -20,8 +22,8 @@ export const Brand = styled.Image`
 export const Title = styled.Text`
     margin-bottom: 30px;    
     font-size: 20px;
-    color: #333333;
-    font-family: 'Pacifico_400Regular';
+    color: ${COLORS.black};
+    font-family: ${FONTS.Pacifico_400Regular};
 `;
 
 export const FullNameInput = styled.TextInput`
@@ -29,9 +31,8 @@ export const FullNameInput = styled.TextInput`
     margin-bottom: 15px;
     padding: 12px 0;
     text-align: center;
-
     font-size: 20px;
-    border: solid #E0BB0C 2px;
+    border: solid ${COLORS.yellowBorderButton} 2px;
     border-radius: 6px;
 `;
 
@@ -40,7 +41,7 @@ export const SignInContainer = styled.TouchableOpacity`
     justify-content: center;
     margin-bottom: 45px;
 
-    background: #AB8D00;
+    background: ${COLORS.strongGold};
     border-radius: 6px;
     padding: 16px 0;
 `;
@@ -48,5 +49,5 @@ export const SignInContainer = styled.TouchableOpacity`
 export const SignInText = styled.Text`
     text-align: center;
     font-size: 20px;
-    color: white;
+    color: ${COLORS.white}};
 `;
