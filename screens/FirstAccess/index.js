@@ -226,9 +226,6 @@ const FirstAccess = ({ navigation }) => {
                   }
 
                 </View>
-
-
-
               </Animated.View>
             </View>
           );
@@ -238,8 +235,6 @@ const FirstAccess = ({ navigation }) => {
 
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {

@@ -1,16 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
 import * as Updates from "expo-updates";
-import { enableScreens } from "react-native-screens";
-import Routes from "./routes";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from 'expo-status-bar';
+import { enableScreens } from 'react-native-screens';
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import NameContextProvider from './contexts/name';
+import Routes from './routes';
 
 enableScreens();
 
 export default function App() {
+  let [fontsLoaded] = useFonts({ Pacifico_400Regular });
+
   useEffect(() => {
     try {
       async function updateApp() {
@@ -30,17 +32,10 @@ export default function App() {
   return (
     <SafeAreaProvider style={styles.droidSafeArea}>
       <NavigationContainer>
-        <Routes />
+        <NameContextProvider>
+          <Routes />
+        </NameContextProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  }
-});
