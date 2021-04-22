@@ -14,8 +14,8 @@ export const Container = styled.View`
 `;
 
 export const Brand = styled.Image`
-    width: 50%;
-    height: 55px;
+    width: 55%;
+    height: 8%;
     margin-bottom: 30px;
 `;
 
@@ -39,7 +39,7 @@ export const FullNameInput = styled.TextInput`
 export const SignInContainer = styled.TouchableOpacity`
     width: 70%;
     justify-content: center;
-    margin-bottom: 45px;
+    margin-bottom: 50px;
 
     background: ${COLORS.strongGold};
     border-radius: 6px;
