@@ -27,7 +27,7 @@ const Login = ({ navigation }) => {
     return (
         <KeyboardView>
             <Container>
-                <Brand source={require('../../assets/brand.png')}></Brand>
+                <Brand source={require('../../assets/brand.png')} resizeMode="center" />
                 <Title>Comece a aprender um idioma agora.</Title>
 
                 <FullNameInput placeholder="Nome completo"
