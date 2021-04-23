@@ -6,7 +6,7 @@ import Types from '../constansts/prismic-types';
 const at = Prismic.predicates.at;
 
 export default {
-    getStep: async(id) => {
+    getEtapa: async(id) => {
         try {
             return (await PrismicClient.query(at('document.id', id))).results;
         } catch (error) {
@@ -14,7 +14,7 @@ export default {
         }
     },
 
-    getSteps: async() => {
+    getEtapas: async() => {
         try {
             const response = await PrismicClient.query(
                 at('document.type', Types.Etapa),
