@@ -18,9 +18,11 @@ const Login = ({ navigation }) => {
 
     useEffect(() => {
         (async() => {
-            const response = await EtapaService.getSteps();
+            // const response = await EtapaService.getSteps();
+            // const response = await EtapaService.getStep('YIMnlBMAACAASgZL');
+            // console.log(response);
         })();
-    });
+    }, []);
 
     const handleSignInOnPress = () => {
         if (name.trim() != '') {
