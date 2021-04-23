@@ -22,7 +22,7 @@ import { KEYS } from '../../constansts/keys';
 
 const { width, height } = Dimensions.get('window');
 const SPACING = 10;
-const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.80;
+const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.72;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const BACKDROP_HEIGHT = height * 0.65; 5
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
@@ -146,17 +146,6 @@ const FirstAccess = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Backdrop data={DATA} scrollX={scrollX} />
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <Logo  width={width/3} height={100} />
-      </View>
-
       <Animated.FlatList
         showsHorizontalScrollIndicator={false}
         data={DATA}
@@ -165,7 +154,7 @@ const FirstAccess = ({ navigation }) => {
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
         renderToHardwareTextureAndroid
-        contentContainerStyle={{ alignItems: 'center' }}
+        contentContainerStyle={{ alignItems: 'center'}}
         snapToInterval={ITEM_SIZE}
         snapToAlignment='start'
         pagingEnabled={true}
@@ -189,7 +178,7 @@ const FirstAccess = ({ navigation }) => {
 
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange: [40, -60, 40],
+            outputRange: [50, -50, 50],
             extrapolate: 'clamp'
           });
 
