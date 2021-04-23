@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import FirstAccess from '../screens/FirstAccess';
 import Login from '../screens/Login';
+import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Routes() {
     const NativeStack = createNativeStackNavigator();
@@ -34,6 +36,16 @@ export default function Routes() {
                     gestureEnabled: false
                 }}
             />
+
+            <NativeStack.Screen name="SelectStep"
+                component={SelectStep}
+                options={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}
+            />
+
+
         </NativeStack.Navigator>
     );
 }
