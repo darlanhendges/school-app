@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { enableScreens } from 'react-native-screens';
 import AppLoading from 'expo-app-loading';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import { Roboto_400Regular } from '@expo-google-fonts/roboto';
+import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import NameContextProvider from './contexts/name';
 import Routes from './routes';
 
@@ -30,12 +30,12 @@ export default function App() {
     }
   }, []);
 
-  let [fontsLoaded] = useFonts({ Pacifico_400Regular, Roboto_400Regular });
+  let [fontsLoaded] = useFonts({ Pacifico_400Regular, Roboto_400Regular,Roboto_500Medium });
   if (!fontsLoaded)
     return <AppLoading />;
 
   return (
-    <SafeAreaProvider >
+    <SafeAreaProvider style={{flex:1}} >
       <NavigationContainer>
         <NameContextProvider>
           <Routes />
