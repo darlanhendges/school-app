@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CommonActions } from '@react-navigation/native';
 import { NameContext } from '../../contexts/name';
 
