@@ -8,7 +8,7 @@ const at = Prismic.predicates.at;
 export default {
     getStep: async(id) => {
         try {
-            return (await PrismicClient.query(at('document.id', id))).results;
+            return (await PrismicClient.query(at('document.id', id))).results[0];
         } catch (error) {
             throw new Error(ErrorMessages.Default + error.message);
         }
@@ -17,8 +17,8 @@ export default {
     getSteps: async() => {
         try {
             const response = await PrismicClient.query(
-                at('document.type', Types.Etapa),
-                { orderings: `[document.first_publication_date]` }
+                at('document.type', Types.Step),
+                { orderings: '[document.first_publication_date]' }
             );
 
             return response.results;
