@@ -6,7 +6,7 @@ import Types from '../constansts/prismic-types';
 const at = Prismic.predicates.at;
 
 export default {
-    getQuestao: async(id) => {
+    getStep: async(id) => {
         try {
             return (await PrismicClient.query(at('document.id', id))).results;
         } catch (error) {
@@ -14,10 +14,10 @@ export default {
         }
     },
 
-    getQuestoes: async() => {
+    getSteps: async() => {
         try {
             const response = await PrismicClient.query(
-                at('document.type', Types.Questao),
+                at('document.type', Types.Etapa),
                 { orderings: `[document.first_publication_date]` }
             );
 
