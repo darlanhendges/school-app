@@ -10,7 +10,7 @@ export default function Routes() {
     const NativeStack = createNativeStackNavigator();
 
     return (
-        <NativeStack.Navigator initialRouteName="FirstScreen">
+        <NativeStack.Navigator initialRouteName="FirstAccess">
             <NativeStack.Screen
                 name="Login"
                 component={Login}

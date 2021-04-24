@@ -25,7 +25,7 @@ const Welcome = ({ navigation }) => {
     }, [])
 
     useEffect(() => {
-        console.log('redirecionar', steps.length)
+        
         if (steps && steps.length > 0) {
             navigation.dispatch(CommonActions.reset({
                 index: 1,
