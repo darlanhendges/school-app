@@ -38,7 +38,8 @@ export const ImageApresentation = styled.Image`
 export const ContainerText = styled.View`
     flex:1;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-left:10px;
 `
 
 export const TextStep = styled.Text`
