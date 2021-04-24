@@ -8,7 +8,7 @@ const at = Prismic.predicates.at;
 export default {
     getStep: async(id) => {
         try {
-            return (await PrismicClient.query(at('document.id', id))).results;
+            return (await PrismicClient.query(at('document.id', id))).results[0];
         } catch (error) {
             throw new Error(ErrorMessages.Default + error.message);
         }
