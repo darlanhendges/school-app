@@ -17,8 +17,8 @@ export default {
     getSteps: async() => {
         try {
             const response = await PrismicClient.query(
-                at('document.type', Types.Etapa),
-                { orderings: `[document.first_publication_date]` }
+                at('document.type', Types.Step),
+                { orderings: '[document.first_publication_date]' }
             );
 
             return response.results;

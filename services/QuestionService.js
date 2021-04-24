@@ -17,8 +17,8 @@ export default {
     getQuestions: async() => {
         try {
             const response = await PrismicClient.query(
-                at('document.type', Types.Questao),
-                { orderings: `[document.first_publication_date]` }
+                at('document.type', Types.Question),
+                { orderings: '[document.first_publication_date]' }
             );
 
             return response.results;
