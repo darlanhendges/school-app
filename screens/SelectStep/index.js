@@ -1,49 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { View } from "react-native";
 import AppHeader from "../../components/AppHeader";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaContainer, StepsList, Step, BodyStep, ImageApresentation, TextStep, ContainerText, ContainerImage, Separator, ContainerCheck } from './styles';
 import { COLORS } from "../../constansts/colors";
 import StepService from "../../services/StepService";
-
-
+import { StepsContext } from "../../contexts/steps";
 
 const SelectStep = ({ navigation }) => {
-    const [dataStep, setDataStep] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-
-    async function getSteps() {
-        setDataStep([]);
-        const steps = await StepService.getSteps();
-        let stepsBuilt = [];
-
-        steps.map((item) => {
-            const { id, data } = item;
-            const title = data.titulo[0].text;
-
-            try {
-                const image = data.imagem_destaque.url;
-
-                let itemToPush = {
-                    id,
-                    title,
-                    image,
-                    data
-                };
-                console.log(itemToPush);
-                stepsBuilt.push(itemToPush);
-            }
-            catch (e) {
-                alert('Não foi possível montar a etapa: ' + title);
-            }
-        });
-
-        setDataStep(stepsBuilt);
-    }
-
-    useEffect(() => {
-        getSteps();
-    }, [])
+    const { steps } = useContext(StepsContext);
 
     const checked = (item) => {
 
@@ -97,15 +62,12 @@ const SelectStep = ({ navigation }) => {
                 disableBack={true}
             />
             <StepsList
-                data={dataStep}
+                data={steps}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
                 ItemSeparatorComponent={renderSeparator}
-                onRefresh={()=>{
-                    getSteps();
-                }}
-                refreshing={loading}
+                
             />
         </SafeAreaContainer>
     )

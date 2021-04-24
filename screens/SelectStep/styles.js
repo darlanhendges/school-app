@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLORS } from "../../constansts/colors";
 import { FONTS } from "../../constansts/fonts";
 
-export const SafeAreaContainer = styled.SafeAreaView`
+export const SafeAreaContainer = styled.View`
     flex:1;
     background-color: ${COLORS.white};
 `
