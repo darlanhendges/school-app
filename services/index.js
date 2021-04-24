@@ -1,2 +1,2 @@
-export { default as StepService } from './etapa-service';
-export { default as QuestionService } from './questao-service';
+export { default as StepService } from './StepService';
+export { default as QuestionService } from './QuestionService';
