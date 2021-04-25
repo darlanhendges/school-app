@@ -10,7 +10,7 @@ import {
     Title,
     FullNameInput,
     SignInContainer,
-    SignInText,
+    SignInText
 } from './styles';
 
 const Login = ({ navigation }) => {

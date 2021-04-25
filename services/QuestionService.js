@@ -8,7 +8,7 @@ const at = Prismic.predicates.at;
 export default {
     getQuestion: async(id) => {
         try {
-            return (await PrismicClient.query(at('document.id', id))).results;
+            return (await PrismicClient.query(at('document.id', id))).results[0];
         } catch (error) {
             throw new Error(ErrorMessages.Default + error.message);
         }
@@ -17,8 +17,8 @@ export default {
     getQuestions: async() => {
         try {
             const response = await PrismicClient.query(
-                at('document.type', Types.Questao),
-                { orderings: `[document.first_publication_date]` }
+                at('document.type', Types.Question),
+                { orderings: '[document.first_publication_date]' }
             );
 
             return response.results;

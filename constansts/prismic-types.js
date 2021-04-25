@@ -1,4 +1,4 @@
 export default {
-    Etapa: 'etapa',
-    Questao: 'questao'
-}
+    Step: 'step',
+    Question: 'question'
+};
