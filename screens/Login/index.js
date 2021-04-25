@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CommonActions } from '@react-navigation/native';
 import { NameContext } from '../../contexts/name';
+import { ActivityIndicator } from '../../components';
 
 import {
     KeyboardView,
@@ -13,16 +14,35 @@ import {
 } from './styles';
 
 const Login = ({ navigation }) => {
-    const { name, setName } = useContext(NameContext);
+    const { name, setName, signIn } = useContext(NameContext);
+    const [loading, setLoading] = useState(true);
 
-    const handleSignInOnPress = () => {
+    const redirectToWelcomeScreen = () => {
+        navigation.dispatch(CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Welcome' }]
+        }));
+    }
+
+    const handleSignInOnPress = async() => {
         if (name.trim() != '') {
-            navigation.dispatch(CommonActions.reset({
-                index: 1,
-                routes: [{ name: 'Welcome' }]
-            }));
+            setLoading(true);
+            await signIn(name);
+            redirectToWelcomeScreen();
+        } else {
+            alert('Informe o seu nome para entrar.');
         }
     }
+
+    useEffect(() => {
+        if (name)
+            redirectToWelcomeScreen();
+        else
+            setLoading(false);
+    }, []);
+
+    if (loading)
+        return (<ActivityIndicator />);
 
     return (
         <KeyboardView>
