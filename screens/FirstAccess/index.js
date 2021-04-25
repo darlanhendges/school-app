@@ -17,7 +17,7 @@ import Logo from '../../assets/logo';
 import MainButton from '../../components/MainButton';
 import { COLORS } from '../../constansts/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { KEYS } from '../../constansts/keys';
+import Keys from '../../constansts/keys';
 
 
 const { width, height } = Dimensions.get('window');
@@ -129,7 +129,7 @@ const FirstAccess = ({ navigation }) => {
   React.useEffect(() => {
 
     async function testLocalStorage() {
-      const localStorageFirstAccess = await AsyncStorage.getItem(KEYS.localStorageFirstAccess);
+      const localStorageFirstAccess = await AsyncStorage.getItem(Keys.LocalStorageFirstAccess);
 
       if (localStorageFirstAccess) {
         alert('Usuário já viu essa tela precisa direcionar para o login.');
@@ -208,7 +208,7 @@ const FirstAccess = ({ navigation }) => {
                   {item.button &&
                     <MainButton
                       onPress={async () => {
-                        await AsyncStorage.setItem(KEYS.localStorageFirstAccess, 'true');
+                        await AsyncStorage.setItem(Keys.LocalStorageFirstAccess, 'true');
 
                             navigation.dispatch(CommonActions.reset({
                               index: 1,
