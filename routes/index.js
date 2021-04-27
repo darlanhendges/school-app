@@ -4,7 +4,7 @@ import FirstAccess from '../screens/FirstAccess';
 import Login from '../screens/Login';
 import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
-import { useNavigation } from '@react-navigation/native';
+import Question from '../screens/Question';
 
 export default function Routes() {
     const NativeStack = createNativeStackNavigator();
@@ -45,7 +45,13 @@ export default function Routes() {
                 }}
             />
 
-
+            <NativeStack.Screen name="Question"
+                component={Question}
+                options={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}
+            />
         </NativeStack.Navigator>
     );
 }
