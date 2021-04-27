@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { COLORS } from "../../constansts/colors";
 import { FONTS } from "../../constansts/fonts";
 
-export const SafeAreaContainer = styled.SafeAreaView`
+export const SafeAreaContainer = styled.View`
     flex:1;
     background-color: ${COLORS.white};
 `
@@ -38,7 +38,8 @@ export const ImageApresentation = styled.Image`
 export const ContainerText = styled.View`
     flex:1;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-left:10px;
 `
 
 export const TextStep = styled.Text`
