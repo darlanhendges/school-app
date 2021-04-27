@@ -5,12 +5,13 @@ import Login from '../screens/Login';
 import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
 import { useNavigation } from '@react-navigation/native';
+import StepApresentation from '../screens/StepApresentation';
 
 export default function Routes() {
     const NativeStack = createNativeStackNavigator();
 
     return (
-        <NativeStack.Navigator initialRouteName="FirstAccess">
+        <NativeStack.Navigator initialRouteName="Login">
             <NativeStack.Screen
                 name="Login"
                 component={Login}
@@ -45,6 +46,13 @@ export default function Routes() {
                 }}
             />
 
+            <NativeStack.Screen name="StepApresentation"
+                component={StepApresentation}
+                options={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}
+            />
 
         </NativeStack.Navigator>
     );

@@ -6,6 +6,7 @@ import { SafeAreaContainer, StepsList, Step, BodyStep, ImageApresentation, TextS
 import { COLORS } from "../../constansts/colors";
 import StepService from "../../services/StepService";
 import { StepsContext } from "../../contexts/steps";
+import { CommonActions } from "@react-navigation/routers";
 
 const SelectStep = ({ navigation }) => {
     const { steps } = useContext(StepsContext);
@@ -25,9 +26,7 @@ const SelectStep = ({ navigation }) => {
             <Step>
                 <BodyStep
                     key={item.index}
-                    onPress={() => {
-                        console.log('cliquei')
-                    }}
+                    onPress={() => navigation.navigate('StepApresentation', { step:item })}
                     onShowUnderlay={separators.highlight}
                     onHideUnderlay={separators.unhighlight}
                 >
@@ -67,7 +66,7 @@ const SelectStep = ({ navigation }) => {
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
                 ItemSeparatorComponent={renderSeparator}
-                
+
             />
         </SafeAreaContainer>
     )

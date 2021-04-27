@@ -21,6 +21,7 @@ export default ({ children }) => {
                 let itemToPush = {
                     id,
                     title: data.title[0].text,
+                    subtitle: data.subtitle[0].text,
                     featured_image: data.featured_image.url,
                     step_presentation: data.step_presentation[0].text,
                     presentation_image: data.presentation_image.url,
