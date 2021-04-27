@@ -1,4 +1,4 @@
-export const KEYS = {
-    localStorageFirstAccess: '@SchoolApp@:localStorageFirstAccess',
- 
- };
+export default {
+    LocalStorageFirstAccess: '@SchoolApp@:localStorageFirstAccess',
+    Name: '@SchoolApp@:name'
+};
