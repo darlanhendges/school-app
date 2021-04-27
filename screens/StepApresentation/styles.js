@@ -17,6 +17,7 @@ export const Subtitle = styled.Text`
     font-family: ${FONTS.Pacifico_400Regular};
     align-self:center;
     margin-bottom:10px;
+    text-align:center;
     
 `
 /* image */
