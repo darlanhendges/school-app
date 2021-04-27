@@ -14,16 +14,18 @@ export default ({ children }) => {
 
         steps.map((item) => {
             const { id, data } = item;
-            const title = data.titulo[0].text;
+            
 
             try {
-                const image = data.imagem_destaque.url;
 
                 let itemToPush = {
                     id,
-                    title,
-                    image,
-                    data
+                    title: data.title[0].text,
+                    featured_image: data.featured_image.url,
+                    step_presentation: data.step_presentation[0].text,
+                    presentation_image: data.presentation_image.url,
+                    presentation_text: data.presentation_text[0].text,
+                    step_completion_message: data.step_completion_message[0].text
                 };
                 stepsBuilt.push(itemToPush);
                 setSteps(stepsBuilt);

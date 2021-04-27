@@ -33,7 +33,7 @@ const SelectStep = ({ navigation }) => {
                 >
                     <ContainerImage>
                         <ImageApresentation
-                            source={{ uri: item.image }}
+                            source={{ uri: item.featured_image }}
                         />
                     </ContainerImage>
 
