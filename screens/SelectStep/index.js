@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import { View } from "react-native";
 import AppHeader from "../../components/AppHeader";
 import { Ionicons } from '@expo/vector-icons';
@@ -7,15 +7,34 @@ import { COLORS } from "../../constansts/colors";
 import StepService from "../../services/StepService";
 import { StepsContext } from "../../contexts/steps";
 import { CommonActions } from "@react-navigation/routers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import keys from "../../constansts/keys";
 
 const SelectStep = ({ navigation }) => {
     const { steps } = useContext(StepsContext);
+    const [stepsFinished, SetStepsFinished] = useState([]);
+
+    const mountedRef = useRef(true)
+
+    useEffect(() => {
+
+        async function getStepsFinished() {
+            const object = await AsyncStorage.getItem(keys.StepsFinished);
+            
+            if (object !== null)
+                SetStepsFinished(JSON.parse(object));
+        }
+
+        getStepsFinished();
+
+        return () => {
+            mountedRef.current = false;   // clean up function
+        };
+    }, [])
 
     const checked = (item) => {
 
-        var randomNumber = Math.floor(Math.random() * 100) + 1;
-
-        if (randomNumber % 2 === 0)
+        if (stepsFinished.find(i => i.id === item.id))
             return true;
         else
             return false;
@@ -26,7 +45,7 @@ const SelectStep = ({ navigation }) => {
             <Step>
                 <BodyStep
                     key={item.index}
-                    onPress={() => navigation.navigate('StepApresentation', { step:item })}
+                    onPress={() => navigation.navigate('StepApresentation', { step: item })}
                     onShowUnderlay={separators.highlight}
                     onHideUnderlay={separators.unhighlight}
                 >

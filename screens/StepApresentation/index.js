@@ -24,46 +24,51 @@ const StepApresentation = ({ navigation, route }) => {
     const step = route.params?.step;
 
     return (
-        <ScrollContainer>
-            <AppHeader
-                title={step.title}
-                disableBack={false}
-                onPressGoBack={() => {
-                    navigation.dispatch(CommonActions.goBack());
-                }}
-            />
-        
+        <>
+            <ScrollContainer>
+                <AppHeader
+                    title={step.title}
+                    disableBack={false}
+                    onPressGoBack={() => {
+                        navigation.dispatch(CommonActions.goBack());
+                    }}
+                />
 
-            {step.presentation_image &&
-                <ContainerImage>
-                    <PresentationImage
-                        source={{ uri: step.presentation_image }}
-                    />
-                </ContainerImage>}
+                {step.presentation_image &&
+                    <ContainerImage>
+                        <PresentationImage
+                            source={{ uri: step.presentation_image }}
+                        />
+                    </ContainerImage>}
 
-            <Separator />
+                <Separator />
 
-            <ContainerBody>
-                <ContainerText>
-                    <Subtitle>
-                        {step.subtitle}
-                    </Subtitle>
-                    <PresentationText>
-                        {step.presentation_text}
-                    </PresentationText>
-
-                    <ContainerButton>
-                        <MainButton
-                            text="INICIAR"
-                            onPress={() => { }}
-                        >
-
-                        </MainButton>
-                    </ContainerButton>
-                </ContainerText>
-
-            </ContainerBody>
-        </ScrollContainer>
+                <ContainerBody>
+                    <ContainerText>
+                        <Subtitle>
+                            {step.subtitle}
+                        </Subtitle>
+                        <PresentationText>
+                            {step.presentation_text}
+                        </PresentationText>
+                    </ContainerText>
+                </ContainerBody>
+            </ScrollContainer>
+            <ContainerButton>
+                <MainButton
+                    text="INICIAR"
+                    onPress={() => {
+                        navigation.dispatch(CommonActions.navigate({
+                            name: 'StepThankyou',
+                            params: {
+                                step
+                            }
+                        }));
+                    }}
+                >
+                </MainButton>
+            </ContainerButton>
+        </>
     )
 }
 

@@ -28,4 +28,3 @@ export default function BrandColored(props) {
   )
 }
 
-export default SvgComponent
