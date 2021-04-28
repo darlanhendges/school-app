@@ -6,6 +6,7 @@ import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
 import { useNavigation } from '@react-navigation/native';
 import StepApresentation from '../screens/StepApresentation';
+import StepThankyou from '../screens/StepThankyou';
 
 export default function Routes() {
     const NativeStack = createNativeStackNavigator();
@@ -53,6 +54,16 @@ export default function Routes() {
                     gestureEnabled: false
                 }}
             />
+
+            <NativeStack.Screen name="StepThankyou"
+                component={StepThankyou}
+                options={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}
+            />
+
+
 
         </NativeStack.Navigator>
     );

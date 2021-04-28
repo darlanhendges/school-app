@@ -1,15 +1,17 @@
-import { Dimensions } from "react-native";
 import styled from 'styled-components/native'
-import MainButton from "../../components/MainButton";
-
 import { COLORS } from "../../constansts/colors";
 import { FONTS } from '../../constansts/fonts';
 
-const { width, height } = Dimensions.get('window');
 
 
 export const ScrollContainer = styled.ScrollView`
     flex:1;
+`
+
+export const ContainerBrand= styled.View`
+    justify-content:center;
+    align-items:center;
+
 `
 
 export const Subtitle = styled.Text`
