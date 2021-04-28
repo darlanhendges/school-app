@@ -19,24 +19,21 @@ const Text = styled.Text`
     color: ${COLORS.birch};
 `;
 
-const _Alternative = ({ index, data, onPress }) => {
-    const [selected, setSelected] = useState(false);
-
+const _Alternative = ({ data, onPress, selected }) => {
     const handleOnPress = () => {
-        setSelected(!selected);
         onPress(data);
     };
 
-    console.log(index);
+    console.log(data.answer);
 
     return (
         <Alternative onPress={handleOnPress}
             borderColor={selected ? COLORS.green : COLORS.cloud}
-            key={index}
+            selected={selected}
         >
             <Text>{`${data.answer}`}</Text>
         </Alternative>
     );
 };
 
-export default _Alternative;
+export default React.memo(_Alternative);
