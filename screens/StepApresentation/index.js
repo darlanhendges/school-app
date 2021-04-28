@@ -32,6 +32,7 @@ const StepApresentation = ({ navigation, route }) => {
                     navigation.dispatch(CommonActions.goBack());
                 }}
             />
+        
 
             {step.presentation_image &&
                 <ContainerImage>
