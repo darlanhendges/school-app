@@ -5,28 +5,20 @@ import MainButton from "../../components/MainButton";
 import { COLORS } from "../../constansts/colors";
 import { FONTS } from '../../constansts/fonts';
 
-const { width, height } = Dimensions.get('window');
-
-
 export const ScrollContainer = styled.ScrollView`
     flex:1;
 `
 
-export const Subtitle = styled.Text`
-    font-size:30px;
-    font-family: ${FONTS.Pacifico_400Regular};
-    align-self:center;
-    margin-bottom:10px;
-    text-align:center;
-    
-`
+
 /* image */
 export const ContainerImage = styled.View`
-    height: 300px;
+    flex:1;
+    align-items:center;
 `
 
 export const PresentationImage = styled.Image`
-    flex:1;
+    height: 300px;
+    width: 300px;
 `
 
 /* separator */
@@ -38,7 +30,14 @@ export const Separator = styled.View`
     margin-bottom:15px;
 `
 
-
+export const Subtitle = styled.Text`
+    font-size:30px;
+    font-family: ${FONTS.Pacifico_400Regular};
+    align-self:center;
+    margin-bottom:10px;
+    text-align:center;
+    
+`
 
 /* container body */
 export const ContainerBody = styled.View`

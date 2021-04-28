@@ -20,7 +20,7 @@ const SelectStep = ({ navigation }) => {
 
         async function getStepsFinished() {
             const object = await AsyncStorage.getItem(keys.StepsFinished);
-            console.log(object);
+            
             if (object !== null)
                 SetStepsFinished(JSON.parse(object));
         }

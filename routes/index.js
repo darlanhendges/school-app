@@ -4,7 +4,6 @@ import FirstAccess from '../screens/FirstAccess';
 import Login from '../screens/Login';
 import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
-import { useNavigation } from '@react-navigation/native';
 import StepApresentation from '../screens/StepApresentation';
 import StepThankyou from '../screens/StepThankyou';
 

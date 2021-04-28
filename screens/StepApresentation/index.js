@@ -34,7 +34,6 @@ const StepApresentation = ({ navigation, route }) => {
                     }}
                 />
 
-
                 {step.presentation_image &&
                     <ContainerImage>
                         <PresentationImage

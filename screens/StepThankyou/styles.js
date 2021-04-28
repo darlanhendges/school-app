@@ -24,11 +24,13 @@ export const Subtitle = styled.Text`
 `
 /* image */
 export const ContainerImage = styled.View`
-    height: 300px;
+    flex:1;
+    align-items:center;
 `
 
 export const PresentationImage = styled.Image`
-    flex:1;
+    height: 300px;
+    width: 300px;
 `
 
 /* separator */
