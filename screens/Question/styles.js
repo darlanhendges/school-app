@@ -2,8 +2,7 @@ import styled from 'styled-components/native';
 import { COLORS } from '../../constansts/colors';
 
 export const SafeAreaContainer = styled.SafeAreaView`
-    display: flex;
-    height: 100%;
+    flex: 1;
     background-color: ${COLORS.floralWhite};
 `;
 
@@ -58,17 +57,12 @@ export const AlternativesContainer = styled.View`
     margin: 0 auto 25px auto;
 `;
 
-export const Alternative = styled.Text`
-    padding: 15px 0 15px 20px;
-    margin-bottom: 10px;
-    background-color: ${COLORS.white};
-    border: 1px solid ${COLORS.cloud};
-    border-radius: 8px;
-    font-size: 20px;
-    color: #3C3A36;
+export const MainButtonBackground = styled.View`
+    background-color: ${COLORS.floralWhite};
 `;
 
 export const MainButtonContainer = styled.View`
-    width: 70%;
-    margin: 0 auto 0 auto;
+    width: 80%;
+    margin: 0 auto 25px auto;
+    background-color: ${COLORS.floralWhite};
 `;

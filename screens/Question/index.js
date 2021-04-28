@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, Text } from 'react-native';
 import { QuestionService } from '../../services';
 import { MainButton } from '../../components';
+import Alternative from './Alternative';
 
 import {
     SafeAreaContainer,
@@ -13,52 +14,64 @@ import {
     Image,
     Separator,
     AlternativesContainer,
-    Alternative,
+    MainButtonBackground,
     MainButtonContainer,
 } from './styles';
 
+
 const Question = () => {
+    const [responseAlternatives, setResponseAlternatives] = useState([]);
+    const [selectedResponses, setSelectedResponse] = useState([]);
+
     const Containers = ({ children }) => {
         return (
             <SafeAreaContainer>
                 <ScrollView>{children}</ScrollView>
             </SafeAreaContainer>
         );
-    }
+    };
 
-    // useEffect(() => {
-    //     (async() => {
-    //         const response = await QuestionService.getQuestions();
-    //         console.log(response);
-    //     })();
-    // }, []);
+    const handleAlternativeOnPress = alternative => {
+        setSelectedResponse(oldValue => oldValue.push(alternative));
+    };
+
+    useEffect(() => {
+        (async() => {
+            const question = (await QuestionService.getQuestions())[0].data;
+            setResponseAlternatives(question.answers);
+        })();
+    }, []);
 
     return (
-        <Containers>
-            <HeaderContainer>
-                <Tip source={require('../../assets/tip.png')} resizeMode="center" />
-                <Title>Título da questão?</Title>
-                <GoBack>X</GoBack>
-            </HeaderContainer>
+        <>
+            <Containers>
+                <HeaderContainer>
+                    <Tip source={require('../../assets/tip.png')} resizeMode="center" />
+                    <Title>Título da questão?</Title>
+                    <GoBack>X</GoBack>
+                </HeaderContainer>
 
-            <ImageContainer>
-                <Image source={{ uri: 'https://images.prismic.io/slicemachine-blank/dcea6535-f43b-49a7-8623-bf281aaf1cb2_roller-skating.png?auto=compress,format' }}
-                    resizeMode="center"
-                />
-            </ImageContainer>
+                <ImageContainer>
+                    <Image source={{ uri: 'https://images.prismic.io/slicemachine-blank/dcea6535-f43b-49a7-8623-bf281aaf1cb2_roller-skating.png?auto=compress,format' }}
+                        resizeMode="center"
+                    />
+                </ImageContainer>
 
-            <Separator />
+                <Separator />
 
-            <AlternativesContainer>
-                <Alternative>1. Alternativa 1</Alternative>
-                <Alternative>2. Alternativa 2</Alternative>
-                <Alternative>3. Alternativa 3</Alternative>
-            </AlternativesContainer>
+                <AlternativesContainer>
+                    {responseAlternatives.map((r, index) => {
+                        return (<Alternative index={index} data={r} onPress={handleAlternativeOnPress} />);
+                    })}
+                </AlternativesContainer>
+            </Containers>
 
-            <MainButtonContainer>
-                <MainButton text="CONTINUAR" />
-            </MainButtonContainer>
-        </Containers>
+            <MainButtonBackground>
+                <MainButtonContainer>
+                    <MainButton text="CONTINUAR" />
+                </MainButtonContainer>
+            </MainButtonBackground>
+        </>
     );
 };
 
