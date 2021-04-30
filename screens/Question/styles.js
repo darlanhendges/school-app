@@ -36,11 +36,13 @@ export const GoBack = styled.Text`
 export const ImageContainer = styled.View`
     flex-direction: row;
     justify-content: center;
+
+    height: 200px;
 `;
 
 export const Image = styled.Image`
-    width: 100%;
-    height: 220px;
+    width: 300px;
+    height: 200px;
 `;
 
 export const Separator = styled.View`
@@ -55,6 +57,23 @@ export const AlternativesContainer = styled.View`
     justify-content: center;
     width: 80%;
     margin: 0 auto 25px auto;
+`;
+
+export const AlternativeButton = styled.TouchableOpacity`
+    padding: 15px 0 15px 20px;
+    margin-bottom: 10px;
+
+    background-color: ${COLORS.white};
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${COLORS.cloud};
+    border-radius: 8px;
+`;
+
+export const AlternativeText = styled.Text`
+    font-size: 20px;
+    color: ${COLORS.birch};
 `;
 
 export const MainButtonBackground = styled.View`

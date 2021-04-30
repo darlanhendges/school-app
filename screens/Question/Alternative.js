@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import styled from 'styled-components/native';
 import { COLORS } from '../../constansts/colors';
 
-const Alternative = styled.TouchableOpacity`
+const Button = styled.TouchableOpacity`
     padding: 15px 0 15px 20px;
     margin-bottom: 10px;
 
@@ -14,26 +14,23 @@ const Alternative = styled.TouchableOpacity`
     border-radius: 8px;
 `;
 
-const Text = styled.Text`
+const ButtonText = styled.Text`
     font-size: 20px;
     color: ${COLORS.birch};
 `;
 
-const _Alternative = ({ data, onPress, selected }) => {
-    const handleOnPress = () => {
-        onPress(data);
-    };
+const Alternative = ({ data, onPress, selected }) => {
+    const handleOnPress = () => onPress(data);
 
-    console.log(data.answer);
+    console.log('Renderizou');
 
     return (
-        <Alternative onPress={handleOnPress}
-            borderColor={selected ? COLORS.green : COLORS.cloud}
-            selected={selected}
+        <Button onPress={handleOnPress}
+            borderColor={!selected ? COLORS.cloud : COLORS.green}
         >
-            <Text>{`${data.answer}`}</Text>
-        </Alternative>
+            <ButtonText>{`${data.answer}`}</ButtonText>
+        </Button>
     );
 };
 
-export default React.memo(_Alternative);
+export default memo(Alternative);
