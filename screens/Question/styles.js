@@ -1,7 +1,10 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 import { COLORS } from '../../constansts/colors';
 
-export const SafeAreaContainer = styled.SafeAreaView`
+const { width, height } = Dimensions.get('window');
+
+export const SafeAreaContainer = styled.ScrollView`
   flex: 1;
   background-color: ${COLORS.floralWhite};
 `;
@@ -12,12 +15,11 @@ export const HeaderContainer = styled.View`
   justify-content: space-around;
   width: 100%;
   height: 50px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-`;
+  margin-top: 40px;
+  `;
 
 export const Tip = styled.Image`
-  width: 25px;
+  width: 15px;
   height: 25px;
 `;
 
@@ -36,13 +38,15 @@ export const GoBack = styled.Text`
 export const ImageContainer = styled.View`
   flex-direction: row;
   justify-content: center;
-
-  height: 200px;
-`;
+  display: flex;
+  width: ${width}px;
+  align-content: center;
+`
 
 export const Image = styled.Image`
-  width: 300px;
-  height: 200px;
+  height: ${width*0.60}px;
+  width: ${width*0.60}px;
+  align-self: center;
 `;
 
 export const Separator = styled.View`
@@ -54,7 +58,6 @@ export const Separator = styled.View`
 
 export const AlternativesContainer = styled.View`
   display: flex;
-
   width: 80%;
   margin: 0 auto 25px auto;
   height: 100%;

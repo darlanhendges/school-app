@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, ScrollView, View, Text } from 'react-native';
+import { FlatList, ScrollView, View, Text, Dimensions } from 'react-native';
 import { QuestionService } from '../../services';
 import { MainButton } from '../../components';
 import Alternative from './Alternative';
+
 
 import {
   SafeAreaContainer,
@@ -20,13 +21,19 @@ import {
   MainButtonContainer,
 } from './styles';
 import { COLORS } from '../../constansts/colors';
+import AppLoading from 'expo-app-loading';
+import Loader from '../../components/ActivityIndicator';
 
 const Question = () => {
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const Containers = ({ children }) => {
-    return <SafeAreaContainer>{children}</SafeAreaContainer>;
+    return <SafeAreaContainer>
+      {children}
+    </SafeAreaContainer>
+
   };
 
   const handleAlternativeOnPress = (alternative) => {
@@ -53,11 +60,17 @@ const Question = () => {
       });
 
       setAnswers(_questions[0].data.answers);
+      setLoading(false);
     })();
   }, []);
 
+
+  if (loading)
+    return <Loader />
+
   return (
     <>
+
       <Containers>
         <HeaderContainer>
           <Tip source={require('../../assets/tip.png')} />
@@ -85,16 +98,6 @@ const Question = () => {
               />
             );
           })}
-          {/* data={answers}
-          //extraData={(c) => c.id}
-          renderItem={({ item }) => (
-            <Alternative
-              data={item}
-              onPress={() => {
-                handleAlternativeOnPress(item);
-              }}
-            />
-          )} */}
         </AlternativesContainer>
       </Containers>
 
