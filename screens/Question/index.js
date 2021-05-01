@@ -1,106 +1,110 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { FlatList, ScrollView, View, Text } from 'react-native';
 import { QuestionService } from '../../services';
 import { MainButton } from '../../components';
-// import Alternative from './Alternative';
+import Alternative from './Alternative';
 
 import {
-    SafeAreaContainer,
-    HeaderContainer,
-    Tip,
-    Title,
-    GoBack,
-    ImageContainer,
-    Image,
-    Separator,
-    AlternativesContainer,
-    AlternativeButton,
-    AlternativeText,
-    MainButtonBackground,
-    MainButtonContainer,
+  SafeAreaContainer,
+  HeaderContainer,
+  Tip,
+  Title,
+  GoBack,
+  ImageContainer,
+  Image,
+  Separator,
+  AlternativesContainer,
+  AlternativeButton,
+  AlternativeText,
+  MainButtonBackground,
+  MainButtonContainer,
 } from './styles';
+import { COLORS } from '../../constansts/colors';
 
 const Question = () => {
-    const [questions, setQuestions] = useState([]);
-    const [selectedResponseAlternatives, setSelectedResponseAlternatives] = useState([]);
+  const [question, setQuestion] = useState(null);
+  const [answers, setAnswers] = useState([]);
 
-    const Containers = ({ children }) => {
-        return (
-            <SafeAreaContainer>
-                <ScrollView>{children}</ScrollView>
-            </SafeAreaContainer>
-        );
-    };
+  const Containers = ({ children }) => {
+    return <SafeAreaContainer>{children}</SafeAreaContainer>;
+  };
 
-    const handleAlternativeOnPress = alternative => {
-        let _selectedAlternatives = [...selectedResponseAlternatives];
+  const handleAlternativeOnPress = (alternative) => {
+    let tempAnswers = answers.map((item, indice) => {
+      if (item.id === alternative.id) {
+        item.selected = !alternative.selected;
+      }
 
-        if (!_selectedAlternatives.some(a => a.answer === alternative.answer))
-            _selectedAlternatives.push(alternative);
-        else
-            _selectedAlternatives = _selectedAlternatives.filter(a => a.answer !== alternative.answer);
+      return item;
+    });
 
-        setSelectedResponseAlternatives(_selectedAlternatives);
-    };
+    setAnswers(tempAnswers);
+  };
 
-    // const renderResponseAlternatives = () => {
-    //     return questions[0].data.answers.map((r, i) => (
-    //         <Alternative key={i}
-    //             data={r}
-    //             onPress={handleAlternativeOnPress}
-    //             selected={!!selectedResponseAlternatives.some(_r => _r.answer === r.answer)}
-    //         />
-    //     ));
-    // };
+  useEffect(() => {
+    (async () => {
+      const _questions = await QuestionService.getQuestions();
+      setQuestion(_questions[0]);
 
-    const renderResponseAlternatives = () => {
-        return questions[0].data.answers.map((r, i) => (
-            <AlternativeButton key={i} onPress={handleAlternativeOnPress}>
-                <AlternativeText>{r.answer}</AlternativeText>
-            </AlternativeButton>
-        ));
-    };
+      let answers = _questions[0].data.answers;
+      answers.map((item, indice) => {
+        item.id = indice.toString();
+        item.selected = false;
+      });
 
-    console.log('Renderizou!');
+      setAnswers(_questions[0].data.answers);
+    })();
+  }, []);
 
-    useEffect(() => {
-        (async() => {
-            const _questions = (await QuestionService.getQuestions());
-            setQuestions(_questions);
-        })();
-    }, []);
+  return (
+    <>
+      <Containers>
+        <HeaderContainer>
+          <Tip source={require('../../assets/tip.png')} />
+          <Title>Título da questão?</Title>
+          <GoBack>X</GoBack>
+        </HeaderContainer>
 
-    return (
-        <>
-            <Containers>
-                <HeaderContainer>
-                    <Tip source={require('../../assets/tip.png')} />
-                    <Title>Título da questão?</Title>
-                    <GoBack>X</GoBack>
-                </HeaderContainer>
+        <ImageContainer>
+          {question && (
+            <Image source={{ uri: question.data.image.url ?? '' }} />
+          )}
+        </ImageContainer>
 
-                <ImageContainer>
-                    {questions.length > 0
-                        ? <Image source={{ uri: questions[0].data.image.url ?? '' }} />
-                        : null}
-                </ImageContainer>
+        <Separator />
 
-                <Separator />
+        <AlternativesContainer>
+          {answers.map((item) => {
+            return (
+              <Alternative
+                data={item}
+                key={Math.random()}
+                onPress={() => {
+                  handleAlternativeOnPress(item);
+                }}
+              />
+            );
+          })}
+          {/* data={answers}
+          //extraData={(c) => c.id}
+          renderItem={({ item }) => (
+            <Alternative
+              data={item}
+              onPress={() => {
+                handleAlternativeOnPress(item);
+              }}
+            />
+          )} */}
+        </AlternativesContainer>
+      </Containers>
 
-                <AlternativesContainer>
-                    {questions.length > 0
-                        ? renderResponseAlternatives()
-                        : null}
-                </AlternativesContainer>
-            </Containers>
-
-            <MainButtonBackground>
-                <MainButtonContainer>
-                    <MainButton text="CONTINUAR" />
-                </MainButtonContainer>
-            </MainButtonBackground>
-        </>
-    );
+      <MainButtonBackground>
+        <MainButtonContainer>
+          <MainButton text='CONTINUAR' />
+        </MainButtonContainer>
+      </MainButtonBackground>
+    </>
+  );
 };
 
 export default Question;
