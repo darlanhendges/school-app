@@ -1,113 +1,140 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, ScrollView, View, Text, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { QuestionService } from '../../services';
-import { MainButton } from '../../components';
-import Alternative from './Alternative';
-
+import { MainButton, ActivityIndicator, InfoModal } from '../../components';
+import Answer from './Answer';
 
 import {
-  SafeAreaContainer,
-  HeaderContainer,
-  Tip,
-  Title,
-  GoBack,
-  ImageContainer,
-  Image,
-  Separator,
-  AlternativesContainer,
-  AlternativeButton,
-  AlternativeText,
-  MainButtonBackground,
-  MainButtonContainer,
+    SafeAreaContainer,
+    HeaderContainer,
+    TipButton,
+    Tip,
+    Title,
+    GoBack,
+    ImageContainer,
+    Image,
+    Separator,
+    AnswersContainer,
+    MainButtonBackground,
+    MainButtonContainer
 } from './styles';
-import { COLORS } from '../../constansts/colors';
-import AppLoading from 'expo-app-loading';
-import Loader from '../../components/ActivityIndicator';
 
 const Question = () => {
-  const [question, setQuestion] = useState(null);
-  const [answers, setAnswers] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const [question, setQuestion] = useState({});
+    const [answers, setAnswers] = useState([]);
+    const [modalData, setModalData] = useState({});
 
-  const Containers = ({ children }) => {
-    return <SafeAreaContainer>
-      {children}
-    </SafeAreaContainer>
+    const Containers = ({ children }) => {
+        return (<SafeAreaContainer>{children}</SafeAreaContainer>);
+    };
 
-  };
+    const handleTipOnPress = () => {
+        setModalData({ isVisible: true, text: question.data.tip });
+    };
 
-  const handleAlternativeOnPress = (alternative) => {
-    let tempAnswers = answers.map((item, indice) => {
-      if (item.id === alternative.id) {
-        item.selected = !alternative.selected;
-      }
+    const handleAnswerOnPress = answer => {
+        const _answers = answers.map(a => {
+            if (a.id === answer.id)
+                a.selected = !answer.selected;
 
-      return item;
-    });
+            return a;
+        });
 
-    setAnswers(tempAnswers);
-  };
+        setAnswers(_answers);
+    };
 
-  useEffect(() => {
-    (async () => {
-      const _questions = await QuestionService.getQuestions();
-      setQuestion(_questions[0]);
+    const renderAnswers = () => {
+        return answers.map((a, i) => (
+            <Answer data={a}
+                onPress={() => handleAnswerOnPress(a)}
+                key={i}
+            />
+        ));
+    };
 
-      let answers = _questions[0].data.answers;
-      answers.map((item, indice) => {
-        item.id = indice.toString();
-        item.selected = false;
-      });
+    const handleContinuarOnPress = () => {
+        const selectedAnswers = answers.filter(a => a.selected);
 
-      setAnswers(_questions[0].data.answers);
-      setLoading(false);
-    })();
-  }, []);
+        if (selectedAnswers.length == 0) {
+            setModalData({
+                isVisible: true,
+                text: 'Selecione uma alternativa.'
+            });
 
+            return;
+        }
 
-  if (loading)
-    return <Loader />
+        const areAllAnswersCorrect = selectedAnswers.every(a => a.correct);
 
-  return (
-    <>
+        if (areAllAnswersCorrect) {
+            setModalData({
+                isVisible: true,
+                text: 'Parabéns! Você acertou.'
+            });
+        } else {
+            setModalData({
+                isVisible: true,
+                text: question.data.error_message
+            });
+        }
+    };
 
-      <Containers>
-        <HeaderContainer>
-          <Tip source={require('../../assets/tip.png')} />
-          <Title>Título da questão?</Title>
-          <GoBack>X</GoBack>
-        </HeaderContainer>
+    const handleModalOnBackButtonPress = () => setModalData({ isVisible: false, text: '' });
 
-        <ImageContainer>
-          {question && (
-            <Image source={{ uri: question.data.image.url ?? '' }} />
-          )}
-        </ImageContainer>
+    useEffect(() => {
+        (async () => {
+            const _questions = await QuestionService.getQuestions();
+            setQuestion(_questions[0]);
 
-        <Separator />
+            let answers = _questions[0].data.answers;
 
-        <AlternativesContainer>
-          {answers.map((item) => {
-            return (
-              <Alternative
-                data={item}
-                key={Math.random()}
-                onPress={() => {
-                  handleAlternativeOnPress(item);
-                }}
-              />
-            );
-          })}
-        </AlternativesContainer>
-      </Containers>
+            answers.forEach((a, i) => {
+                a.id = i;
+                a.selected = false;
+            });
 
-      <MainButtonBackground>
-        <MainButtonContainer>
-          <MainButton text='CONTINUAR' />
-        </MainButtonContainer>
-      </MainButtonBackground>
-    </>
-  );
+            setAnswers(_questions[0].data.answers);
+            setLoading(false);
+        })();
+    }, []);
+
+    if (loading)
+        return (<ActivityIndicator />);
+
+    return (
+        <>
+            <Containers>
+                <HeaderContainer>
+                    <TipButton onPress={handleTipOnPress}>
+                        <Tip source={require('../../assets/tip.png')} />
+                    </TipButton>
+
+                    <Title>Título da questão?</Title>
+                    <GoBack>X</GoBack>
+                </HeaderContainer>
+
+                <ImageContainer>
+                    {question && <Image source={{ uri: question.data.image.url ?? '' }} />}
+                </ImageContainer>
+
+                <Separator />
+
+                <AnswersContainer>
+                    {renderAnswers()}
+                </AnswersContainer>
+            </Containers>
+                
+            <MainButtonBackground>
+                <MainButtonContainer>
+                    <MainButton text='CONTINUAR' onPress={handleContinuarOnPress} />
+                </MainButtonContainer>
+            </MainButtonBackground>
+
+            <InfoModal data={modalData}
+                onBackButtonPress={handleModalOnBackButtonPress}
+            />
+        </>
+    );
 };
 
 export default Question;
