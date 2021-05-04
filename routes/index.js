@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import FirstAccess from '../screens/FirstAccess';
 import Login from '../screens/Login';
@@ -51,6 +51,7 @@ export default function Routes() {
                     headerShown: false,
                     gestureEnabled: false
                 }}
+                initialParams={{ questionId: 'YISAKhMAACIAT_h_' }}
             />
         </NativeStack.Navigator>
     );

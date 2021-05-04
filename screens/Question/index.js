@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { QuestionService } from '../../services';
 import { MainButton, ActivityIndicator, InfoModal } from '../../components';
 import Answer from './Answer';
+import { RichText } from 'prismic-reactjs';
 
 import {
     SafeAreaContainer,
@@ -18,7 +19,7 @@ import {
     MainButtonContainer
 } from './styles';
 
-const Question = () => {
+const Question = ({ navigation, route }) => {
     const [loading, setLoading] = useState(true);
     const [question, setQuestion] = useState({});
     const [answers, setAnswers] = useState([]);
@@ -63,26 +64,36 @@ const Question = () => {
         const areAllAnswersCorrect = selectedAnswers.every(a => a.correct);
 
         if (areAllAnswersCorrect)
-            setModalData({ isVisible: true, text: 'Parabéns! Você acertou.' });
+            renderNextQuestion();
         else
             setModalData({ isVisible: true, text: question.data.error_message });
     };
 
     const handleModalOnBackButtonPress = () => setModalData({ isVisible: false, text: '' });
 
+    const renderNextQuestion = () => {
+        const nextQuestionId = question.data.next_question.id;
+
+        if (question.data.next_question.id)
+            navigation.push('Question', { questionId: question.data.next_question.id });
+        else {
+            
+        }
+    };
+
     useEffect(() => {
         (async () => {
-            const _questions = await QuestionService.getQuestions();
-            setQuestion(_questions[0]);
+            const _question = await QuestionService.getQuestion(route.params.questionId);
+            setQuestion(_question);
 
-            let answers = _questions[0].data.answers;
+            let answers = _question.data.answers;
 
             answers.forEach((a, i) => {
                 a.id = i;
                 a.selected = false;
             });
 
-            setAnswers(_questions[0].data.answers);
+            setAnswers(_question.data.answers);
             setLoading(false);
         })();
     }, []);
@@ -98,7 +109,7 @@ const Question = () => {
                         <Tip source={require('../../assets/tip.png')} />
                     </TipButton>
 
-                    <Title>Título da questão?</Title>
+                    <Title>{RichText.asText(question.data.title)}</Title>
                     <GoBack>X</GoBack>
                 </HeaderContainer>
 
@@ -108,9 +119,7 @@ const Question = () => {
 
                 <Separator />
 
-                <AnswersContainer>
-                    {renderAnswers()}
-                </AnswersContainer>
+                <AnswersContainer>{renderAnswers()}</AnswersContainer>
             </Containers>
                 
             <MainButtonBackground>
