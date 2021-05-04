@@ -56,27 +56,16 @@ const Question = () => {
         const selectedAnswers = answers.filter(a => a.selected);
 
         if (selectedAnswers.length == 0) {
-            setModalData({
-                isVisible: true,
-                text: 'Selecione uma alternativa.'
-            });
-
+            setModalData({ isVisible: true, text: 'Selecione uma alternativa.' });
             return;
         }
 
         const areAllAnswersCorrect = selectedAnswers.every(a => a.correct);
 
-        if (areAllAnswersCorrect) {
-            setModalData({
-                isVisible: true,
-                text: 'Parabéns! Você acertou.'
-            });
-        } else {
-            setModalData({
-                isVisible: true,
-                text: question.data.error_message
-            });
-        }
+        if (areAllAnswersCorrect)
+            setModalData({ isVisible: true, text: 'Parabéns! Você acertou.' });
+        else
+            setModalData({ isVisible: true, text: question.data.error_message });
     };
 
     const handleModalOnBackButtonPress = () => setModalData({ isVisible: false, text: '' });
