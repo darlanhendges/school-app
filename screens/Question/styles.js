@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 import { COLORS } from '../../constansts/colors';
@@ -14,15 +13,19 @@ export const HeaderContainer = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+
     width: 100%;
-    height: 50px;
+    height: 25px;
+
     margin-top: 40px;
+    margin-bottom: 30px;
 `;
 
 export const TipButton = styled.TouchableOpacity``;
 
 export const Tip = styled.Image`
-    width: 15px;
+    width: 18px;
     height: 25px;
 `;
 
@@ -62,8 +65,10 @@ export const Separator = styled.View`
 
 export const AnswersContainer = styled.View`
     display: flex;
+
     width: 80%;
     height: 100%;
+
     margin: 0 auto 25px auto;
 `;
 
