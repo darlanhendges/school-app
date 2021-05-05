@@ -1,18 +1,26 @@
 import { StyleSheet } from 'react-native';
+import styled from 'styled-components';
+import { COLORS } from '../../constansts/colors';
 
-export default StyleSheet.create({
-    view: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '20%',
+export const ModalContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${COLORS.white};
+  border-radius: 15px;
+`;
 
-        backgroundColor: 'white',
-        borderRadius: 15,
-    },
-    text: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 15
-    }
-});
+export const ContainerText = styled.View`
+  width: 70%;
+`;
+
+export const Text = styled.Text`
+  padding-top: 25px;
+  font-size: 16px;
+  padding-bottom: 25px;
+`;
+export const MainContainer = styled.View`
+  padding-top: 10px;
+  padding-bottom: 25px;
+  width: 70%;
+`;
