@@ -1,19 +1,28 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
 import Modal from 'react-native-modal';
-import styles from './styles';
+import MainButton from '../MainButton';
 
-export default ({ data, onBackButtonPress }) => {
-    return (
-        <Modal isVisible={data.isVisible}
-            animationInTiming={100}
-            animationOutTiming={100}
-            onBackButtonPress={onBackButtonPress}
-        >
-            <View style={styles.view}>
-                <Text style={styles.text}>{data.text}</Text>
-                <Button title="Fechar" onPress={onBackButtonPress} />
-            </View>
-        </Modal>
-    );
+import { ModalContainer, Text, MainContainer, ContainerText } from './styles';
+
+const InfoModal = ({ data, onBackButtonPress }) => {
+  return (
+    <Modal
+      isVisible={data.isVisible}
+      animationInTiming={500}
+      animationIn='fadeIn'
+      animationOutTiming={500}
+      onBackButtonPress={onBackButtonPress}
+    >
+      <ModalContainer>
+        <ContainerText>
+          <Text>{data.text}</Text>
+        </ContainerText>
+        <MainContainer>
+          <MainButton text='Fechar' onPress={onBackButtonPress} />
+        </MainContainer>
+      </ModalContainer>
+    </Modal>
+  );
 };
+
+export default InfoModal;
