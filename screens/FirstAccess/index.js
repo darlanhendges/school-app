@@ -21,7 +21,7 @@ import Keys from '../../constansts/keys';
 
 
 const { width, height } = Dimensions.get('window');
-const SPACING = 10;
+const SPACING = 5;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.72;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 const BACKDROP_HEIGHT = height * 0.65; 5
@@ -64,11 +64,8 @@ const DATA = [
     url: "https://i.picsum.photos/id/779/440/660.jpg?hmac=1Jo6m9wVaW-FseIt9cTh9nY9oWbnUc9S6fSjT8GtmzA",
     texto: () => {
 
-      return (<View>
-        <Text>Teste de uma escrita meio doida</Text>
-        <Text>Teste de uma escrita meio doida</Text>
-        <Text>Teste de uma escrita meio doida</Text>
-      </View>)
+      return (<>
+      </>)
     },
     poster: "https://i.picsum.photos/id/840/600/600.jpg?hmac=90IJOIPRI3WyOjTIVpcNL2wlrvFpEiRGs8_UCVAZNDA",
     button: true
@@ -132,7 +129,10 @@ const FirstAccess = ({ navigation }) => {
       const localStorageFirstAccess = await AsyncStorage.getItem(Keys.LocalStorageFirstAccess);
 
       if (localStorageFirstAccess) {
-        alert('Usuário já viu essa tela precisa direcionar para o login.');
+        navigation.dispatch(CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Login' }]
+        }));
       }
     }
 
@@ -154,7 +154,7 @@ const FirstAccess = ({ navigation }) => {
         bounces={false}
         decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
         renderToHardwareTextureAndroid
-        contentContainerStyle={{ alignItems: 'center'}}
+        contentContainerStyle={{ alignItems: 'center' }}
         snapToInterval={ITEM_SIZE}
         snapToAlignment='start'
         pagingEnabled={true}
@@ -178,7 +178,7 @@ const FirstAccess = ({ navigation }) => {
 
           const translateY = scrollX.interpolate({
             inputRange,
-            outputRange: [50, -50, 50],
+            outputRange: [50, -30, 50],
             extrapolate: 'clamp'
           });
 
@@ -210,10 +210,10 @@ const FirstAccess = ({ navigation }) => {
                       onPress={async () => {
                         await AsyncStorage.setItem(Keys.LocalStorageFirstAccess, 'true');
 
-                            navigation.dispatch(CommonActions.reset({
-                              index: 1,
-                              routes: [{ name: 'Login' }]
-                          }));
+                        navigation.dispatch(CommonActions.reset({
+                          index: 1,
+                          routes: [{ name: 'Login' }]
+                        }));
                       }}
                       text="CONTINUAR"
                     />
