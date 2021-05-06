@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
-import * as Updates from "expo-updates";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useEffect } from 'react';
+import * as Updates from 'expo-updates';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
+
 import AppLoading from 'expo-app-loading';
-import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
-
-
-
+import { useFonts } from 'expo-font';
 import Routes from './routes';
 import Provider from "./contexts";
 
 enableScreens();
 
 export default function App() {
-
   useEffect(() => {
     try {
       async function updateApp() {
@@ -25,21 +24,29 @@ export default function App() {
         }
       }
       updateApp();
-    }
-    catch (e) {
+    } catch (e) {
       Alerta('Não foi possível atualizar!');
     }
   }, []);
 
-  let [fontsLoaded] = useFonts({ Pacifico_400Regular, Roboto_400Regular, Roboto_500Medium });
+  let [fontsLoaded] = useFonts({
+    Pacifico_400Regular,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Helvetica: require('./assets/fonts/Helvetica.ttf'),
+    Helvetica_Bold: require('./assets/fonts/Helvetica-Bold.ttf'),
+  });
+  
   if (!fontsLoaded)
     return <AppLoading />;
 
   return (
-    <NavigationContainer>
-      <Provider>
-        <Routes />
-      </Provider>
-    </NavigationContainer>
-  );
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Provider>
+          <Routes />
+        </Provider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  )
 }
