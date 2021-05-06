@@ -8,7 +8,6 @@ export const KeyboardView = styled.KeyboardAvoidingView`
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${COLORS.yellow};
   align-items: center;
   justify-content: center;
 `;
@@ -28,6 +27,7 @@ export const Title = styled.Text`
 
 export const FullNameInput = styled.TextInput`
   width: 70%;
+  font-family: ${FONTS.Helvetica};
   margin-bottom: 15px;
   padding: 12px 0;
   text-align: center;
@@ -50,4 +50,5 @@ export const SignInText = styled.Text`
     text-align: center;
     font-size: 20px;
     color: ${COLORS.white}};
+    font-family: ${FONTS.Helvetica};
 `;

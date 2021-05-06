@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { enableScreens } from 'react-native-screens';
 import AppLoading from 'expo-app-loading';
-import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { useFonts } from 'expo-font';
 
