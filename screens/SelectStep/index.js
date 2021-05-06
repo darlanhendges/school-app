@@ -1,54 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import { View } from "react-native";
 import AppHeader from "../../components/AppHeader";
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaContainer, StepsList, Step, BodyStep, ImageApresentation, TextStep, ContainerText, ContainerImage, Separator, ContainerCheck } from './styles';
 import { COLORS } from "../../constansts/colors";
-
-
+import StepService from "../../services/StepService";
+import { StepsContext } from "../../contexts/steps";
+import { CommonActions } from "@react-navigation/routers";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import keys from "../../constansts/keys";
 
 const SelectStep = ({ navigation }) => {
+    const { steps } = useContext(StepsContext);
+    const [stepsFinished, SetStepsFinished] = useState([]);
 
+    const mountedRef = useRef(true)
 
-    const STEPS = [
-        {
-            id: '1',
-            imagem: "https://i.picsum.photos/id/474/440/660.jpg?hmac=5PQBc6Ja2YeT_up5sOAr-R0_JMX39GnMz0gYFcbfsFg",
-            titulo: 'Etapa x',
-            subTitulo: 'lorem ipsun lorem ipsun lorem ipsun lorem ipsun.'
-        },
-        {
-            id: '12',
-            imagem: "https://i.picsum.photos/id/474/440/660.jpg?hmac=5PQBc6Ja2YeT_up5sOAr-R0_JMX39GnMz0gYFcbfsFg",
-            titulo: 'Etapa x',
-            subTitulo: 'lorem ipsun lorem ipsun lorem ipsun lorem ipsun.'
-        },
-        {
-            id: '13',
-            imagem: "https://i.picsum.photos/id/474/440/660.jpg?hmac=5PQBc6Ja2YeT_up5sOAr-R0_JMX39GnMz0gYFcbfsFg",
-            titulo: 'Etapa x',
-            subTitulo: 'lorem ipsun lorem ipsun lorem ipsun lorem ipsun.'
-        },
-        {
-            id: '14',
-            imagem: "https://i.picsum.photos/id/474/440/660.jpg?hmac=5PQBc6Ja2YeT_up5sOAr-R0_JMX39GnMz0gYFcbfsFg",
-            titulo: 'Etapa x',
-            subTitulo: 'lorem ipsun lorem ipsun lorem ipsun lorem ipsun.'
-        },
-        {
-            id: '15',
-            imagem: "https://i.picsum.photos/id/474/440/660.jpg?hmac=5PQBc6Ja2YeT_up5sOAr-R0_JMX39GnMz0gYFcbfsFg",
-            titulo: 'Etapa x',
-            subTitulo: 'lorem ipsun lorem ipsun lorem ipsun lorem ipsun.'
-        },
-    ];
+    useEffect(() => {
+
+        async function getStepsFinished() {
+            const object = await AsyncStorage.getItem(keys.StepsFinished);
+            
+            if (object !== null)
+                SetStepsFinished(JSON.parse(object));
+        }
+
+        getStepsFinished();
+
+        return () => {
+            mountedRef.current = false;   // clean up function
+        };
+    }, [])
 
     const checked = (item) => {
-        
-        var randomNumber = Math.floor(Math.random() * 100) + 1 ;
 
-        
-        if (randomNumber % 2 === 0)
+        if (stepsFinished.find(i => i.id === item.id))
             return true;
         else
             return false;
@@ -59,15 +45,13 @@ const SelectStep = ({ navigation }) => {
             <Step>
                 <BodyStep
                     key={item.index}
-                    onPress={() => {
-                        console.log('cliquei')
-                    }}
+                    onPress={() => navigation.navigate('StepApresentation', { step: item })}
                     onShowUnderlay={separators.highlight}
                     onHideUnderlay={separators.unhighlight}
                 >
                     <ContainerImage>
                         <ImageApresentation
-                            source={{ uri: item.imagem }}
+                            source={{ uri: item.featured_image }}
                         />
                     </ContainerImage>
 
@@ -77,7 +61,7 @@ const SelectStep = ({ navigation }) => {
 
 
                     <ContainerText>
-                        <TextStep>{item.titulo} que vamos apresentar aqui? </TextStep>
+                        <TextStep>{item.title} </TextStep>
                     </ContainerText>
                 </BodyStep>
             </Step>
@@ -96,7 +80,7 @@ const SelectStep = ({ navigation }) => {
                 disableBack={true}
             />
             <StepsList
-                data={[...STEPS, ...STEPS]}
+                data={steps}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}

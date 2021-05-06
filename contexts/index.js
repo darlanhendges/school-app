@@ -1,2 +1,19 @@
-export { default as NameContextProvider } from './name';
-export { NameContext } from './name';
+import React, {  } from "react";
+
+import NameContextProvider from './name';
+import StepsContextProvider from './steps';
+
+const Provider = ({ children }) => { 
+
+    return (
+        <NameContextProvider>
+         <StepsContextProvider> 
+          {children}
+       </StepsContextProvider> 
+      </NameContextProvider>
+    )
+
+}
+
+
+export default Provider;
