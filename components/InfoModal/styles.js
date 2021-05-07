@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components';
 import { COLORS } from '../../constansts/colors';
+import { FONTS } from '../../constansts/fonts';
 
 export const ModalContainer = styled.View`
   display: flex;
@@ -18,6 +19,7 @@ export const Text = styled.Text`
   padding-top: 25px;
   font-size: 16px;
   padding-bottom: 25px;
+  font-family: ${FONTS.Helvetica};
 `;
 export const MainContainer = styled.View`
   padding-top: 10px;

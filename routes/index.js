@@ -5,54 +5,77 @@ import Login from '../screens/Login';
 import SelectStep from '../screens/SelectStep';
 import Welcome from '../screens/Welcome';
 import Question from '../screens/Question';
+import StepApresentation from '../screens/StepApresentation';
+import StepThankyou from '../screens/StepThankyou';
 
 export default function Routes() {
-    const NativeStack = createNativeStackNavigator();
+  const NativeStack = createNativeStackNavigator();
 
-    return (
-        <NativeStack.Navigator initialRouteName="Question">
-            <NativeStack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false
-                }}
-            />
-            
-            <NativeStack.Screen
-                name="FirstAccess"
-                component={FirstAccess}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false
-                }}
-            />
+  return (
+    <NativeStack.Navigator initialRouteName='Login'>
+      <NativeStack.Screen
+        name='Login'
+        component={Login}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
 
-            <NativeStack.Screen name="Welcome"
-                component={Welcome}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false
-                }}
-            />
+      <NativeStack.Screen
+        name='FirstAccess'
+        component={FirstAccess}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
 
-            <NativeStack.Screen name="SelectStep"
-                component={SelectStep}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false
-                }}
-            />
+      <NativeStack.Screen
+        name='Welcome'
+        component={Welcome}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
 
-            <NativeStack.Screen name="Question"
-                component={Question}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false
-                }}
-                initialParams={{ questionId: 'YISAKhMAACIAT_h_' }}
-            />
-        </NativeStack.Navigator>
-    );
+      <NativeStack.Screen
+        name='SelectStep'
+        component={SelectStep}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+
+      <NativeStack.Screen
+        name='Question'
+        component={Question}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+        initialParams={{ questionId: 'YISAKhMAACIAT_h_' }}
+      />
+
+      <NativeStack.Screen
+        name='StepApresentation'
+        component={StepApresentation}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+
+      <NativeStack.Screen
+        name='StepThankyou'
+        component={StepThankyou}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+    </NativeStack.Navigator>
+  );
 }
