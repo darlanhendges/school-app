@@ -29,6 +29,7 @@ export default ({ children }) => {
           presentation_text: data.presentation_text[0].text,
           presentation_youtube: data.presentation_youtube,
           step_completion_message: data.step_completion_message[0].text,
+          step_completion_youtube: data.step_completion_youtube,
         };
         stepsBuilt.push(itemToPush);
         setSteps(stepsBuilt);
