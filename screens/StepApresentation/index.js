@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
 import { CommonActions } from '@react-navigation/routers';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, Image } from 'react-native';
 import Logo from '../../assets/logo';
 import { Video } from '../../components';
 import AppHeader from '../../components/AppHeader';
 import MainButton from '../../components/MainButton';
+import { StepsContext } from '../../contexts/steps';
 
 import {
   ScrollContainer,
@@ -13,7 +14,7 @@ import {
   ContainerImage,
   PresentationImage,
   ContainerText,
-  PresentationText,
+  Presentation,
   ContainerBody,
   Separator,
   Subtitle,
@@ -23,6 +24,8 @@ import {
 
 const StepApresentation = ({ navigation, route }) => {
   const step = route.params?.step;
+  console.log('Step...', step);
+  const { getQuestionByStep } = useContext(StepsContext);
 
   return (
     <>
@@ -49,23 +52,24 @@ const StepApresentation = ({ navigation, route }) => {
 
         <ContainerBody>
           <ContainerText>
-            <Subtitle>{step.subtitle}</Subtitle>
-            <PresentationText>{step.presentation_text}</PresentationText>
+            {step.subtitle && <Subtitle>{step.subtitle}</Subtitle>}
+            <Presentation>{step.presentation_text}</Presentation>
           </ContainerText>
         </ContainerBody>
       </ScrollContainer>
       <ContainerButton>
         <MainButton
           text='INICIAR'
-          onPress={() => {
-            navigation.dispatch(
-              CommonActions.navigate({
-                name: 'StepThankyou',
-                params: {
-                  step,
-                },
-              })
-            );
+          onPress={async () => {
+            const questions = await getQuestionByStep(step.id);
+            // navigation.dispatch(
+            //   CommonActions.navigate({
+            //     name: 'StepThankyou',
+            //     params: {
+            //       step,
+            //     },
+            //   })
+            // );
           }}
         ></MainButton>
       </ContainerButton>

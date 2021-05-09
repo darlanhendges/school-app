@@ -18,6 +18,10 @@ export const Brand = styled.Image`
   margin-bottom: 30px;
 `;
 
+export const ContainerTitle = styled.View`
+  width: 80%;
+`;
+
 export const Title = styled.Text`
   margin-bottom: 30px;
   font-size: 20px;
