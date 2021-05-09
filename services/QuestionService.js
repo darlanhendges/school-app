@@ -20,10 +20,9 @@ export default {
         at('my.question.step_id', stepId)
       );
 
-      console.log('getQuestionsByStepId', response.results);
       return response.results;
     } catch (error) {
-      console.log(error);
+      throw new Error(ErrorMessages.Default + error.message);
     }
   },
 };

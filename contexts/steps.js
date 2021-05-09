@@ -55,9 +55,36 @@ export default ({ children }) => {
   async function getQuestionByStep(stepId) {
     try {
       const response = await QuestionService.getQuestionsByStepId(stepId);
-      return response.results;
+
+      const questions = [];
+
+      response.map((item) => {
+        const { id, data } = item;
+
+        console.log(id);
+        console.log(data.title);
+
+        const newQuestion = {
+          id: id,
+          title: data.title ? data.title[0].text : '',
+          //image: data.image ?? data.image.url,
+          // imageAlt: data.image ?? data.image.alt,
+          // youtube_video_id: data.youtube_video_id,
+          // answers: data.answers,
+          // error_message: data.error_message,
+          // tip: data.tip,
+        };
+        questions.push(newQuestion);
+      });
+
+      // let stepsTemp = steps;
+      // stepsTemp.find((s) => s.id === stepId).questions = questions;
+      // setSteps(stepsTemp);
+
+      console.log(JSON.parse(stepsTemp));
     } catch (e) {
       alert('Não foi possível montar as questões.');
+      console.log(e);
     }
   }
 

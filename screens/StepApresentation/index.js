@@ -24,8 +24,7 @@ import {
 
 const StepApresentation = ({ navigation, route }) => {
   const step = route.params?.step;
-  console.log('Step...', step);
-  const { getQuestionByStep } = useContext(StepsContext);
+  const { getQuestionByStep, steps } = useContext(StepsContext);
 
   return (
     <>
@@ -61,7 +60,10 @@ const StepApresentation = ({ navigation, route }) => {
         <MainButton
           text='INICIAR'
           onPress={async () => {
-            const questions = await getQuestionByStep(step.id);
+            await getQuestionByStep(step.id);
+
+            let stepTemp = steps.find((s) => s.id === step.id);
+
             // navigation.dispatch(
             //   CommonActions.navigate({
             //     name: 'StepThankyou',
