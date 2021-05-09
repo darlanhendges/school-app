@@ -2,15 +2,17 @@
   "name": "app",
   "displayName": "app",
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "School App",
+    "slug": "school-app",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
-    "splash":{
+    "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor":"#FFD306"
-    }
+      "backgroundColor": "#FFD306"
+    },
+    "description": "",
+    "githubUrl": "https://github.com/darlanhendges/school-app"
   }
 }

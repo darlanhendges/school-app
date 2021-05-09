@@ -48,7 +48,7 @@ export const ContainerText = styled.View`
   width: 80%;
 `;
 
-export const PresentationText = styled.Text`
+export const Presentation = styled.Text`
   font-size: 16px;
   font-family: ${FONTS.Helvetica};
 `;

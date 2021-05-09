@@ -1,45 +1,98 @@
 import React, { createContext, useState } from 'react';
+import { QuestionService } from '../services';
 import StepService from '../services/StepService';
 
-export const StepsContext = createContext({ steps: '', setSteps: null, getSteps: null });
-
+export const StepsContext = createContext({
+  steps: '',
+  setSteps: null,
+  getSteps: null,
+  getQuestionByStep: null,
+});
 
 export default ({ children }) => {
-    const [steps, setSteps] = useState([]);
+  const [steps, setSteps] = useState([]);
 
-    async function getSteps() {
+  async function getSteps() {
+    const steps = await StepService.getSteps();
+    let stepsBuilt = [];
 
-        const steps = await StepService.getSteps();
-        let stepsBuilt = [];
+    steps.map((item) => {
+      const { id, data } = item;
 
-        steps.map((item) => {
-            const { id, data } = item;
-            
+      try {
+        let itemToPush = {
+          id: id,
+          title: data.title ? data.title[0].text : '',
+          subtitle: data.subtitle.length > 0 ? data.subtitle[0].text : '',
+          featured_image: data.featured_image.url,
+          step_presentation:
+            data.step_presentation.length > 0
+              ? data.step_presentation[0].text
+              : '',
+          presentation_image: data.presentation_image.url,
+          presentation_text:
+            data.presentation_text.length > 0
+              ? data.presentation_text[0].text
+              : '',
+          presentation_youtube: data.presentation_youtube,
+          step_completion_message:
+            data.step_completion_message.length > 0
+              ? data.step_completion_message[0].text
+              : '',
+          step_completion_youtube: data.step_completion_youtube,
+          questions: [],
+        };
 
-            try {
+        stepsBuilt.push(itemToPush);
+      } catch (e) {
+        alert('Não foi possível montar a etapa: ' + e);
+      }
+    });
 
-                let itemToPush = {
-                    id,
-                    title: data.title[0].text,
-                    subtitle: data.subtitle[0].text,
-                    featured_image: data.featured_image.url,
-                    step_presentation: data.step_presentation[0].text,
-                    presentation_image: data.presentation_image.url,
-                    presentation_text: data.presentation_text[0].text,
-                    step_completion_message: data.step_completion_message[0].text
-                };
-                stepsBuilt.push(itemToPush);
-                setSteps(stepsBuilt);
-            }
-            catch (e) {
-                alert('Não foi possível montar a etapa: ' + title);
-            }
-        });
+    setSteps(stepsBuilt);
+  }
+
+  async function getQuestionByStep(stepId) {
+    try {
+      const response = await QuestionService.getQuestionsByStepId(stepId);
+
+      const questions = [];
+
+      response.map((item) => {
+        const { id, data } = item;
+
+        console.log(id);
+        console.log(data.title);
+
+        const newQuestion = {
+          id: id,
+          title: data.title ? data.title[0].text : '',
+          //image: data.image ?? data.image.url,
+          // imageAlt: data.image ?? data.image.alt,
+          // youtube_video_id: data.youtube_video_id,
+          // answers: data.answers,
+          // error_message: data.error_message,
+          // tip: data.tip,
+        };
+        questions.push(newQuestion);
+      });
+
+      // let stepsTemp = steps;
+      // stepsTemp.find((s) => s.id === stepId).questions = questions;
+      // setSteps(stepsTemp);
+
+      console.log(JSON.parse(stepsTemp));
+    } catch (e) {
+      alert('Não foi possível montar as questões.');
+      console.log(e);
     }
+  }
 
-    return (
-        <StepsContext.Provider value={{ steps, setSteps, getSteps }}>
-            {children}
-        </StepsContext.Provider>
-    );
+  return (
+    <StepsContext.Provider
+      value={{ steps, setSteps, getSteps, getQuestionByStep }}
+    >
+      {children}
+    </StepsContext.Provider>
+  );
 };
