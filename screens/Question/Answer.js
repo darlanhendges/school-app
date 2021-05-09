@@ -20,6 +20,7 @@ const ButtonText = styled.Text`
 `;
 
 const Answer = ({ data, onPress }) => {
+    console.log(data);
     const handleOnPress = () => onPress(data);
 
     return (

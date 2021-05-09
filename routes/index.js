@@ -56,7 +56,7 @@ export default function Routes() {
           headerShown: false,
           gestureEnabled: false,
         }}
-        initialParams={{ questionId: 'YISAKhMAACIAT_h_' }}
+        
       />
 
       <NativeStack.Screen

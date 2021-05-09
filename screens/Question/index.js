@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { QuestionService } from '../../services';
 import { MainButton, ActivityIndicator, InfoModal } from '../../components';
 import Answer from './Answer';
@@ -18,19 +18,22 @@ import {
     MainButtonBackground,
     MainButtonContainer
 } from './styles';
+import { StepsContext } from '../../contexts/steps';
+import { CommonActions } from '@react-navigation/routers';
 
 const Question = ({ navigation, route }) => {
-    const [loading, setLoading] = useState(true);
     const [question, setQuestion] = useState({});
     const [answers, setAnswers] = useState([]);
     const [modalData, setModalData] = useState({});
+    const { steps } = useContext(StepsContext);
+
 
     const Containers = ({ children }) => {
         return (<SafeAreaContainer>{children}</SafeAreaContainer>);
     };
 
     const handleTipOnPress = () => {
-        setModalData({ isVisible: true, text: question.data.tip });
+        setModalData({ isVisible: true, text: question.tip });
     };
 
     const handleAnswerOnPress = answer => {
@@ -66,40 +69,52 @@ const Question = ({ navigation, route }) => {
         if (areAllAnswersCorrect)
             renderNextQuestion();
         else
-            setModalData({ isVisible: true, text: question.data.error_message });
+            setModalData({ isVisible: true, text: question.error_message });
     };
 
     const handleModalOnBackButtonPress = () => setModalData({ isVisible: false, text: '' });
 
     const renderNextQuestion = () => {
-        const nextQuestionId = question.data.next_question.id;
+        const step = steps.find(s => s.id === route.params.stepId);
+        const questions = step.questions;
+        const questionIndexCurrent = route.params.question;
 
-        if (question.data.next_question.id)
-            navigation.push('Question', { questionId: question.data.next_question.id });
+        if ((questionIndexCurrent + 1) < questions.length)
+            navigation.push('Question', { stepId: route.params.stepId, question: (questionIndexCurrent + 1) });
         else {
-            
+            navigation.dispatch(CommonActions.reset({
+                index: 1,
+                routes: [{
+                    name: 'StepThankyou', params: {
+                        step
+                    }
+                }]
+            }));
         }
+
     };
 
     useEffect(() => {
         (async () => {
-            const _question = await QuestionService.getQuestion(route.params.questionId);
+            const _question = steps.find(s => s.id === route.params.stepId).questions[route.params.question];
             setQuestion(_question);
 
-            let answers = _question.data.answers;
+            console.log(_question);
 
-            answers.forEach((a, i) => {
-                a.id = i;
-                a.selected = false;
+            let answers = _question.answers;
+
+            answers.map((a, i) => {
+                return {
+                    ...a,
+                    id: i,
+                    selected: false
+                }
             });
 
-            setAnswers(_question.data.answers);
-            setLoading(false);
+            setAnswers(answers);
+
         })();
     }, []);
-
-    if (loading)
-        return (<ActivityIndicator />);
 
     return (
         <>
@@ -109,19 +124,19 @@ const Question = ({ navigation, route }) => {
                         <Tip source={require('../../assets/tip.png')} />
                     </TipButton>
 
-                    <Title>{RichText.asText(question.data.title)}</Title>
+                    <Title>{question.title}</Title>
                     <GoBack>X</GoBack>
                 </HeaderContainer>
 
                 <ImageContainer>
-                    {question && <Image source={{ uri: question.data.image.url ?? '' }} />}
+                    {question && question.image && <Image source={{ uri: question.image.url }} />}
                 </ImageContainer>
 
                 <Separator />
 
                 <AnswersContainer>{renderAnswers()}</AnswersContainer>
             </Containers>
-                
+
             <MainButtonBackground>
                 <MainButtonContainer>
                     <MainButton text='CONTINUAR' onPress={handleContinuarOnPress} />

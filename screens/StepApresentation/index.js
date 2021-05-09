@@ -62,16 +62,15 @@ const StepApresentation = ({ navigation, route }) => {
           onPress={async () => {
             await getQuestionByStep(step.id);
 
-            let stepTemp = steps.find((s) => s.id === step.id);
-
-            // navigation.dispatch(
-            //   CommonActions.navigate({
-            //     name: 'StepThankyou',
-            //     params: {
-            //       step,
-            //     },
-            //   })
-            // );
+            navigation.dispatch(
+              CommonActions.navigate({
+                name: 'Question',
+                params: {
+                  stepId: step.id,
+                  question:0
+                },
+              })
+            );
           }}
         ></MainButton>
       </ContainerButton>
