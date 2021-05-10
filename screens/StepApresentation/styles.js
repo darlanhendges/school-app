@@ -51,6 +51,7 @@ export const ContainerText = styled.View`
 export const Presentation = styled.Text`
   font-size: 16px;
   font-family: ${FONTS.Helvetica};
+  text-align: justify;
 `;
 
 export const ContainerButton = styled.View`
