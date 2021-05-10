@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
 import { COLORS } from '../../constansts/colors';
+import { FONTS } from '../../constansts/fonts';
 
 const { width, height } = Dimensions.get('window');
 
@@ -22,17 +23,38 @@ export const HeaderContainer = styled.View`
     margin-bottom: 30px;
 `;
 
-export const TipButton = styled.TouchableOpacity``;
+export const TipButton = styled.TouchableOpacity`
+`;
 
 export const Tip = styled.Image`
     width: 18px;
     height: 25px;
 `;
 
+export const TitleStep = styled.Text`
+    font-size: 20px;
+    font-weight: bold;
+    color: ${COLORS.birch};
+    font-family:${FONTS.Helvetica};
+    
+`;
+
+
+export const ContainerTitle = styled.View`
+    width:100%;
+    align-items:center;
+    
+`
+
 export const Title = styled.Text`
     font-size: 20px;
     font-weight: bold;
     color: ${COLORS.birch};
+    font-family:${FONTS.Helvetica};
+    width: 80%;
+    text-align: justify;
+
+
 `;
 
 export const GoBack = styled.Text`

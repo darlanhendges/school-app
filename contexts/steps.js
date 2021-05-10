@@ -77,9 +77,11 @@ export default ({ children }) => {
       stepsTemp.find((s) => s.id === stepId).questions = questions;
       setSteps(stepsTemp);
 
+      return questions;
+
     } catch (e) {
       alert('Não foi possível montar as questões.');
-      
+
     }
   }
 

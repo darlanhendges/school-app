@@ -10,6 +10,8 @@ import {
     TipButton,
     Tip,
     Title,
+    TitleStep,
+    ContainerTitle,
     GoBack,
     ImageContainer,
     Image,
@@ -27,6 +29,7 @@ const Question = ({ navigation, route }) => {
     const [modalData, setModalData] = useState({});
     const { steps } = useContext(StepsContext);
 
+    const getStepCurrent = () => steps.find(s => s.id === route.params.stepId);
 
     const Containers = ({ children }) => {
         return (<SafeAreaContainer>{children}</SafeAreaContainer>);
@@ -37,9 +40,12 @@ const Question = ({ navigation, route }) => {
     };
 
     const handleAnswerOnPress = answer => {
+        console.log(answer);
         const _answers = answers.map(a => {
             if (a.id === answer.id)
                 a.selected = !answer.selected;
+            else
+                a.selected = false;
 
             return a;
         });
@@ -66,8 +72,9 @@ const Question = ({ navigation, route }) => {
 
         const areAllAnswersCorrect = selectedAnswers.every(a => a.correct);
 
-        if (areAllAnswersCorrect)
+        if (areAllAnswersCorrect) {
             renderNextQuestion();
+        }
         else
             setModalData({ isVisible: true, text: question.error_message });
     };
@@ -96,22 +103,32 @@ const Question = ({ navigation, route }) => {
 
     useEffect(() => {
         (async () => {
-            const _question = steps.find(s => s.id === route.params.stepId).questions[route.params.question];
+            const _question = getStepCurrent().questions[route.params.question];
+
+            if (!_question.id) {
+                navigation.dispatch(CommonActions.reset({
+                    index: 1,
+                    routes: [{
+                        name: 'SelectStep'
+                    }]
+                }));
+            }
+
             setQuestion(_question);
 
-            console.log(_question);
-
             let answers = _question.answers;
+            let answersTmp = [];
 
             answers.map((a, i) => {
-                return {
+                answersTmp.push({
                     ...a,
                     id: i,
                     selected: false
-                }
+                });
             });
 
-            setAnswers(answers);
+            setAnswers(answersTmp);
+
 
         })();
     }, []);
@@ -124,17 +141,32 @@ const Question = ({ navigation, route }) => {
                         <Tip source={require('../../assets/tip.png')} />
                     </TipButton>
 
-                    <Title>{question.title}</Title>
-                    <GoBack>X</GoBack>
-                </HeaderContainer>
+                    <TitleStep>{getStepCurrent().title}</TitleStep>
 
-                <ImageContainer>
-                    {question && question.image && <Image source={{ uri: question.image.url }} />}
-                </ImageContainer>
+                    <GoBack onPress={() => {
+                        navigation.dispatch(CommonActions.reset({
+                            index: 1,
+                            routes: [{
+                                name: 'SelectStep'
+                            }]
+                        }));
+                    }} >X</GoBack>
+                </HeaderContainer>
+                <Separator />
+
+                <ContainerTitle>
+                    <Title>{question.title}</Title>
+                </ContainerTitle>
+
+                {question && question.image && question.image.url && (
+                    <ImageContainer>
+                        { <Image source={{ uri: question.image.url }} />}
+                    </ImageContainer>)}
 
                 <Separator />
 
-                <AnswersContainer>{renderAnswers()}</AnswersContainer>
+                {answers && <AnswersContainer>{renderAnswers()}</AnswersContainer>}
+
             </Containers>
 
             <MainButtonBackground>

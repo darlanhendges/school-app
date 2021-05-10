@@ -9,14 +9,14 @@ export const ScrollContainer = styled.ScrollView`
 export const ContainerBrand = styled.View`
   justify-content: center;
   align-items: center;
+  padding-bottom:15px;
 `;
 
 export const Subtitle = styled.Text`
   font-size: 30px;
   font-family: ${FONTS.Helvetica_Bold};
   align-self: center;
-  margin-bottom: 10px;
-  text-align: center;
+  padding-bottom:15px;  text-align: center;
 `;
 /* image */
 export const ContainerImage = styled.View`
