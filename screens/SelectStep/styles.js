@@ -33,6 +33,13 @@ export const ImageApresentation = styled.Image`
   opacity: 0.7;
 `;
 
+export const ActivityIndicatorImage = styled.ActivityIndicator`
+  width: 80px;
+  height: 80px;
+  margin: 3px;
+  position: absolute;
+`;
+
 export const ContainerText = styled.View`
   flex: 1;
   justify-content: center;

@@ -1,18 +1,21 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import AppHeader from "../../components/AppHeader";
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaContainer, StepsList, Step, BodyStep, ImageApresentation, TextStep, ContainerText, ContainerImage, Separator, ContainerCheck } from './styles';
+import { SafeAreaContainer, StepsList, Step, BodyStep, ImageApresentation, TextStep, ContainerText, ContainerImage, Separator, ContainerCheck, ActivityIndicatorImage } from './styles';
 import { COLORS } from "../../constansts/colors";
 import StepService from "../../services/StepService";
 import { StepsContext } from "../../contexts/steps";
 import { CommonActions } from "@react-navigation/routers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import keys from "../../constansts/keys";
+import { ImageLoader } from '../../components';
 
 const SelectStep = ({ navigation }) => {
     const { steps } = useContext(StepsContext);
     const [stepsFinished, SetStepsFinished] = useState([]);
+    const [loading, setLoading] = useState(false);
+
 
     const mountedRef = useRef(true)
 
@@ -20,7 +23,7 @@ const SelectStep = ({ navigation }) => {
 
         async function getStepsFinished() {
             const object = await AsyncStorage.getItem(keys.StepsFinished);
-            
+
             if (object !== null)
                 SetStepsFinished(JSON.parse(object));
         }
@@ -50,9 +53,15 @@ const SelectStep = ({ navigation }) => {
                     onHideUnderlay={separators.unhighlight}
                 >
                     <ContainerImage>
+
                         <ImageApresentation
                             source={{ uri: item.featured_image }}
+                            onLoad={() => setLoading(true)}
+                            onLoadEnd={() => setTimeout(()=>{setLoading(true)}, 5000)}
                         />
+
+                        {loading && <ActivityIndicatorImage/>}
+
                     </ContainerImage>
 
                     {checked(item) && <ContainerCheck>
