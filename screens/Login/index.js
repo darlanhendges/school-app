@@ -11,6 +11,7 @@ import {
   FullNameInput,
   SignInContainer,
   SignInText,
+  ContainerTitle,
 } from './styles';
 
 const Login = ({ navigation }) => {
@@ -47,7 +48,9 @@ const Login = ({ navigation }) => {
     <KeyboardView>
       <Container>
         <Brand source={require('../../assets/brand.png')} resizeMode='center' />
-        <Title>Comece a aprender um idioma agora.</Title>
+        <ContainerTitle>
+          <Title>Comece a aprender um idioma agora.</Title>
+        </ContainerTitle>
 
         <FullNameInput
           placeholder='Nome completo'

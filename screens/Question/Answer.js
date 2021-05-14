@@ -20,7 +20,9 @@ const ButtonText = styled.Text`
 `;
 
 const Answer = ({ data, onPress }) => {
-    const handleOnPress = () => onPress(data);
+    const handleOnPress = () => {
+        onPress(data);
+    }
 
     return (
         <Button onPress={handleOnPress}

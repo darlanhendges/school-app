@@ -6,24 +6,23 @@ import Types from '../constansts/prismic-types';
 const at = Prismic.predicates.at;
 
 export default {
-    getQuestion: async(id) => {
-        try {
-            return (await PrismicClient.query(at('document.id', id))).results[0];
-        } catch (error) {
-            throw new Error(ErrorMessages.Default + error.message);
-        }
-    },
-
-    getQuestions: async() => {
-        try {
-            const response = await PrismicClient.query(
-                at('document.type', Types.Question),
-                { orderings: '[document.first_publication_date]' }
-            );
-
-            return response.results;
-        } catch (error) {
-            alert(ErrorMessages.Default + error.message);
-        }
+  getQuestion: async (id) => {
+    try {
+      return (await PrismicClient.query(at('document.id', id))).results[0];
+    } catch (error) {
+      throw new Error(ErrorMessages.Default + error.message);
     }
-}
+  },
+
+  getQuestionsByStepId: async (stepId) => {
+    try {
+      const response = await PrismicClient.query(
+        at('my.question.step_id', stepId)
+      );
+
+      return response.results;
+    } catch (error) {
+      throw new Error(ErrorMessages.Default + error.message);
+    }
+  },
+};

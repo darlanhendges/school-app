@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/core';
 import { CommonActions } from '@react-navigation/routers';
-import React from 'react';
-import { Text, Image } from 'react-native';
-import Logo from '../../assets/logo';
-import { Video } from '../../components';
+import React, { useContext } from 'react';
+import { useState } from 'react';
+
+import { Video, ActivityIndicator } from '../../components';
 import AppHeader from '../../components/AppHeader';
 import MainButton from '../../components/MainButton';
+import { StepsContext } from '../../contexts/steps';
 
 import {
   ScrollContainer,
@@ -13,7 +14,7 @@ import {
   ContainerImage,
   PresentationImage,
   ContainerText,
-  PresentationText,
+  Presentation,
   ContainerBody,
   Separator,
   Subtitle,
@@ -23,6 +24,8 @@ import {
 
 const StepApresentation = ({ navigation, route }) => {
   const step = route.params?.step;
+  const { getQuestionByStep, steps } = useContext(StepsContext);
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -49,25 +52,42 @@ const StepApresentation = ({ navigation, route }) => {
 
         <ContainerBody>
           <ContainerText>
-            <Subtitle>{step.subtitle}</Subtitle>
-            <PresentationText>{step.presentation_text}</PresentationText>
+            {step.subtitle && <Subtitle>{step.subtitle}</Subtitle>}
+            <Presentation>{step.presentation_text}</Presentation>
           </ContainerText>
         </ContainerBody>
       </ScrollContainer>
       <ContainerButton>
-        <MainButton
+        {!loading && <MainButton
           text='INICIAR'
-          onPress={() => {
-            navigation.dispatch(
-              CommonActions.navigate({
-                name: 'StepThankyou',
-                params: {
-                  step,
-                },
-              })
-            );
+          onPress={async () => {
+            setLoading(true);
+            const questions = await getQuestionByStep(step.id);
+            setLoading(false);
+
+            if (questions.length == 0) {
+              alert('Esta etapa ainda não possui questões cadastradas.');
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: 'SelectStep'
+                 })
+              );
+            }
+            else {
+              
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: 'Question',
+                  params: {
+                    stepId: step.id,
+                    question: 0
+                  },
+                })
+              );
+            }
           }}
-        ></MainButton>
+        ></MainButton>}
+        {loading && <ActivityIndicator />}
       </ContainerButton>
     </>
   );

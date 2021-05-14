@@ -3,6 +3,8 @@ import * as Updates from 'expo-updates';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
+
 
 import AppLoading from 'expo-app-loading';
 import { Pacifico_400Regular } from '@expo-google-fonts/pacifico';
@@ -41,7 +43,7 @@ export default function App() {
     return <AppLoading />;
 
   return (
-    <SafeAreaProvider style={{ flex: 1 }}>
+    <SafeAreaProvider style={{ flex: 1, paddingBottom: getBottomSpace() }}>
       <NavigationContainer>
         <Provider>
           <Routes />

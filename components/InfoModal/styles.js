@@ -19,7 +19,7 @@ export const Text = styled.Text`
   padding-top: 25px;
   font-size: 16px;
   padding-bottom: 25px;
-  text-family: ${FONTS.Helvetica};
+  font-family: ${FONTS.Helvetica};
 `;
 export const MainContainer = styled.View`
   padding-top: 10px;

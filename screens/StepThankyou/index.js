@@ -34,7 +34,7 @@ const StepThankyou = ({ navigation, route }) => {
   return (
     <>
       <ScrollContainer>
-        <AppHeader title='' disableBack={true} />
+        <AppHeader title={step.title} disableBack={true} />
 
         <ContainerBrand>
           <BrandColored width={70} height={70} />
@@ -54,7 +54,7 @@ const StepThankyou = ({ navigation, route }) => {
 
         <ContainerBody>
           <ContainerText>
-            <Subtitle>Parabéns...</Subtitle>
+            <Subtitle>Congratulations...</Subtitle>
             <PresentationText>{step.step_completion_message}</PresentationText>
           </ContainerText>
         </ContainerBody>
