@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { QuestionService } from '../../services';
-import { MainButton, ActivityIndicator, InfoModal } from '../../components';
+import { MainButton, InfoModal } from '../../components';
 import Answer from './Answer';
-import { RichText } from 'prismic-reactjs';
+
 
 import {
     SafeAreaContainer,
